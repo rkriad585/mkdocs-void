@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+<!-- AUTO-CHANGELOG:start -->
+### Commits since the last release (auto)
+- no commits since the last release
+<!-- AUTO-CHANGELOG:end -->
+
+
+## [0.2.1] - 2026-09-17
+
 ### Changed
 
 - The "Powered by Void" footer credit now uses the official Void project icon (two-tone V mark) instead of the dot-matrix placeholder
@@ -22,8 +30,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Commits since the last release (auto)
 - no commits since the last release
 <!-- AUTO-CHANGELOG:end -->
-
-
 ## [0.2.0] - 2026-09-10
 
 ### Added
