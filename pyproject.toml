@@ -46,6 +46,7 @@ Source = "https://github.com/rkriad585/mkdocs-void"
 Issues = "https://github.com/rkriad585/mkdocs-void/issues"
 Changelog = "https://github.com/rkriad585/mkdocs-void/blob/main/CHANGELOG.md"
 Funding = "https://github.com/sponsors/rkriad585"
+"Open Collective" = "https://opencollective.com/rkriad585"
 Tidelift = "https://tidelift.com/funding/github/pypi/mkdocs-void"
 Patreon = "https://www.patreon.com/rkriad585"
 

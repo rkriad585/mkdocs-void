@@ -474,7 +474,7 @@ make help       # Show all commands
   [issues labeled `good first issue`](https://github.com/rkriad585/mkdocs-void/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
   to start contributing
 - **Translations** — see the [Translating Void](https://github.com/rkriad585/mkdocs-void/blob/main/docs/identity.md#translating-void) guide
-- **Sponsor** — fund development via [GitHub Sponsors](https://github.com/sponsors/rkriad585)
+- **Sponsor** — fund development via [GitHub Sponsors](https://github.com/sponsors/rkriad585) or [Open Collective](https://opencollective.com/rkriad585)
 
 ---
 
