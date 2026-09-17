@@ -1,6 +1,6 @@
 {
   "name": "mkdocs-void",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Void is a new design language for MkDocs themes: a drop-in theme (name: void) and companion plugin on top of MkDocs.",
   "keywords": [
     "mkdocs",

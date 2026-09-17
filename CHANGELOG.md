@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+
+- PyPI project metadata: added the Open Collective funding link and removed the placeholder Tidelift and Patreon URLs (Tidelift page returned 403 / did not exist)
+
 <!-- AUTO-CHANGELOG:start -->
 ### Commits since the last release (auto)
 - no commits since the last release
