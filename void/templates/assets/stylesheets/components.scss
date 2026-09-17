@@ -1731,7 +1731,6 @@ html[data-md-void-reading="active"] .void-article {
 	svg {
 		width: 20px;
 		height: 20px;
-		stroke: var(--void-glass-border-strong);
 	}
 }
 
@@ -6391,54 +6390,10 @@ img.void-repo-pop__avatar {
 	}
 }
 
-//Config builder TOC trigger (.void-config-builder) ---------
-// Pinned trigger at the very bottom of the TOC column pointing at the
-// standalone `config-builder.html` tool. It is injected by the JS
-// (`configBuilderEnsureTocTrigger`) into `.void-toc__inner`, which is a flex
-// column, so `margin-top: auto` pushes it to the bottom. Inert/absent when the
-// tool is disabled; the trigger only exists when `config_builder.enabled`.
-.void-config-builder__toc-trigger {
-	display: flex;
-	align-items: center;
-	gap: var(--void-space-3);
-	margin-top: auto;
-	padding: var(--void-space-2) var(--void-space-3);
-	min-width: 0;
-	border: var(--void-border-width, 1px) solid var(--void-glass-border);
-	border-radius: var(--void-radius-md);
-	background: var(--void-glass-bg);
-	backdrop-filter: blur(var(--void-glass-blur)) saturate(var(--void-glass-saturation));
-	-webkit-backdrop-filter: blur(var(--void-glass-blur)) saturate(var(--void-glass-saturation));
-	color: var(--void-text);
-	cursor: pointer;
-	user-select: none;
-
-	&:hover {
-		border-color: var(--void-accent, #3b82f6);
-	}
-
-	&:focus-visible {
-		outline: 2px solid var(--void-accent, #3b82f6);
-		outline-offset: 2px;
-	}
-
-	&__icon {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-
-		svg {
-			width: 16px;
-			height: 16px;
-			display: block;
-		}
-	}
-
-	&__label {
-		font-size: 13px;
-		font-weight: 500;
-	}
-}
+//Config builder entry points (.void-config-builder) --------
+// Access is surfaced through the action-cluster gear slot and the keyboard
+// action (`open_config_builder`); the standalone `config-builder.html` tool is
+// loaded in a new tab. The old pinned TOC-bottom trigger was removed.
 
 // --- Reading-mode chip (.void-timer-reading) -----------------------------
 // Floating status chip rendered only while reading mode is active (the TOC --

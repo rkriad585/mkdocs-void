@@ -1360,31 +1360,19 @@ const cbOffBoot = bootIIFE({
 })
 check("disabled builder adds no TOC trigger", cbOffBoot && cbTocInnerOff._children.length === 0)
 
-// Enabled -> pinned TOC-bottom trigger opens the standalone file in a new tab.
+// Enabled -> no TOC trigger whatsoever (the pinned TOC-bottom button was
+// removed); the builder surfaces only through the action-cluster gear slot
+// and the `open_config_builder` keyboard action.
 windowStub._opened = []
 const cbTocInner = makeNode()
 const cbOnBoot = bootIIFE({
   location: { origin: "https://x", pathname: "/page/", search: "", href: "https://x/page/", hash: "" },
-  config: { base: "/", config_builder: { enabled: true, url: "assets/config-builder.html", toc_footer: true }, action_cluster: {}, timer: { enabled: false } },
+  config: { base: "/", config_builder: { enabled: true, url: "assets/config-builder.html", toc_footer: true }, action_cluster: { enabled: false }, timer: { enabled: false } },
   searchDom: null, stored: {}, tocInner: cbTocInner,
 })
 const cbTriggerList = cbTocInner._children.filter(c => c.className === "void-config-builder__toc-trigger")
-check("enabled builder appends a pinned TOC-bottom trigger", cbOnBoot && cbTriggerList.length === 1)
-const cbTrigger = cbTriggerList[0]
-windowStub._opened = []
-if (cbTrigger && Array.isArray(cbTrigger.listeners.click)) {
-  cbTrigger.listeners.click.forEach(fn => fn())
-}
-const cbOpened = windowStub._opened[windowStub._opened.length - 1] || {}
-check("TOC trigger opens standalone file in a new tab", cbOpened.url === "/assets/config-builder.html" && cbOpened.name === "_blank")
-
-// Enter/Space activates the trigger the same way a click does.
-windowStub._opened = []
-if (cbTrigger && Array.isArray(cbTrigger.listeners.keydown)) {
-  cbTrigger.listeners.keydown.forEach(fn => fn({ preventDefault() {}, key: "Enter" }))
-}
-const cbOpenedKey = windowStub._opened[windowStub._opened.length - 1] || {}
-check("TOC trigger answers Enter/Space", cbOpenedKey.url === "/assets/config-builder.html")
+check("enabled builder adds no TOC trigger", cbOnBoot && cbTriggerList.length === 0)
+check("enabled builder leaves the TOC untouched", cbTocInner._children.length === 0)
 
 // Enabled + cluster -> the injected gear action dispatches to the builder.
 windowStub._opened = []

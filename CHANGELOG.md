@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+
+- The "Powered by Void" footer credit now uses the official Void project icon (two-tone V mark) instead of the dot-matrix placeholder
+- Site-wide `og:image` / Twitter preview card now uses the 1280x640 light-mode logo (`logo-on-light-mode-1280x640.png`)
+- Package metadata (`description`) updated to match the GitHub project description; PyPI/mkdocs version bumped to 0.2.1
+- README badges updated: dynamic PyPI version/downloads plus a new "GitHub Statistics" section (stars, forks, watchers, issues, pull requests, last commit)
+
+### Removed
+
+- The pinned "Config builder" button at the bottom of the TOC and its supporting JS/CSS — access is still available via the action-cluster gear slot and the `open_config_builder` keyboard action
+- `tools/rename_to_void.py` (the one-shot rename helper is no longer needed)
+
 <!-- AUTO-CHANGELOG:start -->
 ### Commits since the last release (auto)
 - no commits since the last release

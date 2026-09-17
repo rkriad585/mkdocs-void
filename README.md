@@ -9,9 +9,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/python-3.8+-blue?logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/pypi/v/mkdocs-void?label=version&color=%23ff3030" alt="PyPI version">
+  <img src="https://img.shields.io/pypi/pyversions/mkdocs-void?logo=python&logoColor=white" alt="Python versions">
+  <img src="https://img.shields.io/pypi/dm/mkdocs-void?label=downloads" alt="PyPI downloads">
   <img src="https://img.shields.io/badge/mkdocs-1.5+-green?logo=markdown" alt="MkDocs">
-  <img src="https://img.shields.io/badge/version-0.1.2-orange" alt="Version">
   <img src="https://img.shields.io/badge/license-MIT-yellow" alt="License">
   <img src="https://img.shields.io/badge/made%20by-rkriad585-white" alt="Made by rkriad585">
 </p>
@@ -21,6 +22,19 @@
 ## Overview
 
 Void is a custom MkDocs theme that blends the translucent, layered aesthetics of Glass design system with the minimal, industrial clarity of NothingOS. It combines pure black canvas, glass morphism panels, dot-matrix typography, and Nothing Red accents into a cohesive documentation experience.
+
+## GitHub Statistics
+
+<p align="center">
+  <img src="https://img.shields.io/github/stars/rkriad585/mkdocs-void?style=for-the-badge&label=Stars&color=%23ff3030" alt="GitHub stars">
+  <img src="https://img.shields.io/github/forks/rkriad585/mkdocs-void?style=for-the-badge&label=Forks&color=%23ff3030" alt="GitHub forks">
+  <img src="https://img.shields.io/github/watchers/rkriad585/mkdocs-void?style=for-the-badge&label=Watchers&color=%23ff3030" alt="GitHub watchers">
+  <img src="https://img.shields.io/github/issues/rkriad585/mkdocs-void?style=for-the-badge&label=Issues&color=%23ff3030" alt="GitHub issues">
+  <img src="https://img.shields.io/github/issues-pr/rkriad585/mkdocs-void?style=for-the-badge&label=Pull%20requests&color=%23ff3030" alt="GitHub pull requests">
+  <img src="https://img.shields.io/github/last-commit/rkriad585/mkdocs-void?style=for-the-badge&label=Last%20commit&color=%23ff3030" alt="Last commit">
+</p>
+
+Live repository metrics for `rkriad585/mkdocs-void`, mirrored on both GitHub and PyPI.
 
 ## Screenshot
 
@@ -37,6 +51,7 @@ Void is a custom MkDocs theme that blends the translucent, layered aesthetics of
 ## Table of Contents
 
 - [Key Features](#key-features)
+- [GitHub Statistics](#github-statistics)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)

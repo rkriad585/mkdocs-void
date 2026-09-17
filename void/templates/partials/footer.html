@@ -153,18 +153,19 @@
     <div class="void-footer__powered">
       <a href="{{ _showcase_target }}" class="void-footer__powered-link" title="{{ _powered_label }}" rel="noopener">
         <span class="void-footer__powered-mark" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none">
-            <rect x="0.5" y="0.5" width="19" height="19" rx="4"/>
-            <circle cx="5" cy="5" r="1.1" fill="currentColor" opacity="0.9"/>
-            <circle cx="10" cy="5" r="1.1" fill="currentColor" opacity="0.55"/>
-            <circle cx="15" cy="5" r="1.1" fill="currentColor" opacity="0.25"/>
-            <circle cx="5" cy="10" r="1.1" fill="currentColor" opacity="0.55"/>
-            <circle cx="10" cy="10" r="1.1" fill="currentColor" fill-opacity="0.9"/>
-            <circle cx="15" cy="10" r="1.1" fill="currentColor" opacity="0.25"/>
-            <circle cx="5" cy="15" r="1.1" fill="currentColor" opacity="0.25"/>
-            <circle cx="10" cy="15" r="1.1" fill="currentColor" opacity="0.25"/>
-            <circle cx="15" cy="15" r="1.1" fill="currentColor" opacity="0.25"/>
-            <circle cx="15" cy="15" r="1.1" fill="var(--void-accent)"/>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 220" fill="none">
+            <defs>
+              <clipPath id="void-footer-v-upper"><polygon points="0,0 140,0 140,100 0,185"/></clipPath>
+              <clipPath id="void-footer-v-lower"><polygon points="0,185 140,100 140,220 0,220"/></clipPath>
+            </defs>
+            <g clip-path="url(#void-footer-v-upper)">
+              <path d="M12 185 L56 15" stroke="var(--void-accent)" stroke-width="28" stroke-linecap="square"/>
+              <path d="M100 15 L56 185" stroke="var(--void-accent)" stroke-width="28" stroke-linecap="square"/>
+            </g>
+            <g clip-path="url(#void-footer-v-lower)">
+              <path d="M12 185 L56 15" stroke="currentColor" stroke-width="28" stroke-linecap="square"/>
+              <path d="M100 15 L56 185" stroke="currentColor" stroke-width="28" stroke-linecap="square"/>
+            </g>
           </svg>
         </span>
         <span class="void-footer__powered-text">{{ _powered_label }}</span>

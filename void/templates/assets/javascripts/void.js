@@ -3949,9 +3949,9 @@ actionClusterEnsureUi(cfg)
  //Standalone config builder links. The tool itself is a plain
   // single-file HTML page shipped in the docs tree (`docs/assets/
   // config-builder.html`); these wiring hooks only resolve that page's URL and
-  // surface its entry points (an action-cluster gear slot + a pinned trigger at
-  // the bottom of the TOC). Every builder behaviour lives in the standalone
-  // file, never in the theme JS.
+  // surface its entry points (an action-cluster gear slot + the keyboard
+  // action). Every builder behaviour lives in the standalone file, never in
+  // the theme JS.
   function openConfigBuilder() {
     const cfg = _config.config_builder || {}
     if (cfg.enabled === false) return
@@ -3960,34 +3960,10 @@ actionClusterEnsureUi(cfg)
     window.open(url, cfg.open_target || "_blank", "noopener")
   }
 
-  // Inject (once) the pinned TOC-bottom trigger. `.void-toc__inner` is a flex
-  // column, so `margin-top: auto` in the CSS pushes it to the very bottom, the
-  // same injection family as the focus-timer TOC widget.
-  function configBuilderEnsureTocTrigger() {
-    if (document.querySelector(".void-config-builder__toc-trigger")) return
-    const inner = $(".void-toc__inner")
-    if (!inner) return
-    const node = document.createElement("div")
-    node.className = "void-config-builder__toc-trigger"
-    node.setAttribute("role", "button")
-    node.setAttribute("tabindex", "0")
-    node.setAttribute("title", "Open config builder")
-    node.setAttribute("aria-label", "Open config builder")
-    node.innerHTML =
-      '<span class="void-config-builder__toc-icon">' + (ACTION_CLUSTER_ICONS.builder || "") + "</span>" +
-      '<span class="void-config-builder__toc-label">Config builder</span>'
-    node.addEventListener("click", openConfigBuilder)
-    node.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openConfigBuilder() }
-    })
-    inner.appendChild(node)
-  }
-
   function initConfigBuilder(config) {
     const cfg = config.config_builder || {}
     if (cfg.enabled === false) return
     keyboardActions.open_config_builder = openConfigBuilder
-    if (cfg.toc_footer !== false) configBuilderEnsureTocTrigger()
   }
 
  //Cluster action id -> built-in keyboard shortcut name it aliases.

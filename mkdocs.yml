@@ -815,8 +815,9 @@ extra:
   # header site name; og/twitter/theme-color/manifest tags land in <head>.
   # "__auto__" generates a per-page social-card og:image at build time
   # (theme.void.social_cards.cards must be enabled; Pillow required for PNG,
-  # otherwise a crisp SVG fallback is emitted).
-  void_og_image: __auto__                      # Per-page auto social-card OG image
+  # otherwise a crisp SVG fallback is emitted). Any other value is used as the
+  # site-wide og:image/twitter preview (site-relative path or absolute URL).
+  void_og_image: assets/images/og-card-banner.png       # Site-wide OG/Twitter preview (light-mode 1280x640 logo)
   # void_theme_color: "#000000"                        # Browser <meta name="theme-color">
   # void_manifest: "/manifest.json"                    # PWA manifest <link rel="manifest">
   # void_twitter_handle: "@username"                   # Twitter card @handle (also used for site/creator)
