@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+<!-- AUTO-CHANGELOG:start -->
+### Commits since the last release (auto)
+- no commits since the last release
+<!-- AUTO-CHANGELOG:end -->
+
+
+## [0.2.2] - 2026-09-17
+
 ### Changed
 
 - PyPI project metadata: added the Open Collective funding link and removed the placeholder Tidelift and Patreon URLs (Tidelift page returned 403 / did not exist)
@@ -14,8 +22,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Commits since the last release (auto)
 - no commits since the last release
 <!-- AUTO-CHANGELOG:end -->
-
-
 ## [0.2.1] - 2026-09-17
 
 ### Changed
