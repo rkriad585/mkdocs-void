@@ -8,7 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 <!-- AUTO-CHANGELOG:start -->
 ### Commits since the last release (auto)
-- no commits since the last release
+- [Changed] ci: stabilize Performance - run Lighthouse 3x and assert the median-run (single-run mobile scores occasionally compute null on shared runners; official recommendation for stable gates)
+- [Changed] chore: release changelog for v0.2.0 [skip ci]
 <!-- AUTO-CHANGELOG:end -->
 
 
