@@ -12,7 +12,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 <!-- AUTO-CHANGELOG:start -->
 ### Commits since the last release (auto)
-- no commits since the last release
+- [Changed] chore: bump to 0.2.2 - drop placeholder Tidelift/Patreon URLs from PyPI metadata
+- [Changed] chore: add Open Collective funding link - https://opencollective.com/rkriad585
+- [Changed] chore: release changelog for v0.2.1 [skip ci]
 <!-- AUTO-CHANGELOG:end -->
 
 
