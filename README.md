@@ -69,26 +69,70 @@ Live repository metrics for `rkriad585/mkdocs-void`, mirrored on both GitHub and
 
 ## Key Features
 
-- **Glass Morphism** — Translucent glass panels with `backdrop-filter` blur and configurable intensity (light / medium / heavy)
+Void ships every feature enabled by default — tune behavior with `theme.void.*`
+keys, never by editing code.
+
+### Visual system
+
+- **Glass Morphism** — Translucent glass panels with `backdrop-filter` blur and configurable intensity (light / medium / heavy), plus blur/saturation/opacity token overrides
 - **NothingOS Canvas** — Pure black (#000000) background with monochrome palette and Nothing Red (#ff3030) accents
-- **Dot-Matrix Overlay** — Subtle dot pattern texture inspired by NothingOS
+- **Dot-Matrix Overlay** — Subtle dot pattern texture inspired by NothingOS (color, size, gap, opacity, position configurable)
 - **Dark & Light Modes** — Toggle between slate (dark) and default (light) color schemes
-- **Typography** — Space Grotesk for display/body, Space Mono for code/labels via Google Fonts
-- **Responsive Layout** — Sidebar navigation, sticky header, and mobile-friendly drawer
+- **Typography** — Space Grotesk for display/body, Space Mono for code/labels via Google Fonts (`theme.font` drives the link AND the body/mono tokens)
+- **Borders, Shadows, Scrollbar & Selection** — Full token groups to re-skin the chrome (`border`, `shadows`, `scrollbar`, `selection`)
+- **Animations** — Page transitions, hover effects, scroll progressives, reduced-motion aware
+
+### Layout & navigation
+
+- **Responsive Layout** — Glass sidebar, sticky header, TOC rail, and mobile-friendly drawer
+- **Collapsible Sidebar / TOC** — `Ctrl+Shift+B` and `Ctrl+Shift+T`, with active tracking and scrollspy
+- **Breadcrumbs** — Auto trail above content when ancestors exist
+- **SPA navigation** — In-page transitions with scroll restore and back/forward handling
+- **Reading progress + Back-to-Top** — Visual scroll indicator and threshold-gated floating button
+- **Flexible Header & Footer** — `header:` and `footer:` sections with custom links/buttons, social icons, columns, and `default | minimal | extended` layouts
+- **Page-Level Overrides** — Front matter `void:` blocks (hide any region, per-page glass, wide/full layouts, custom CSS)
+
+### Content & components
+
 - **Table of Contents** — Auto-generated TOC with active section tracking
-- **Full-Screen Search** — Instant search with keyboard shortcut (`/`) and result highlighting
-- **Code Blocks** — Syntax highlighting with one-click copy button
-- **Admonitions** — Styled note, warning, tip, and danger callouts
+- **Full-Screen Search** — Instant modal with `/`, suggestions, highlighting, context snippets, and copy-link results
+- **Code Blocks** — Syntax highlighting with one-click copy, optional line numbers and `hl_lines`
+- **Admonitions** — Styled note, warning, tip, and danger callouts with per-type colors
 - **Tabbed Content** — Alternating-style tabs for grouped content
-- **Task Lists** — Interactive checkbox lists
-- **Reading Progress Bar** — Visual indicator of scroll position
-- **Back-to-Top Button** — Appears on scroll for quick navigation
+- **Task Lists** — Interactive checkbox lists with persisted state
+- **Footnotes, Tables, Trees, Toast** — Footnote lists, responsive/striped tables, `tree` code blocks with dimmed comments, and a toast notification system
+- **Notes & Annotations** — Quick side notes with TTL expiry and export (`Ctrl+Shift+N`)
+- **Diagrams & Math** — Mermaid superfence with zoom/pan/fullscreen, KaTeX math
+- **Images & SVG** — Click-to-zoom lightbox, lazy loading, dark-aware logos
+
+### Engagement & privacy
+
 - **Page Feedback** — "Was this page helpful?" widget that opens a prefilled GitHub issue (no analytics, no tracking)
-- **Announcement Bar** — Dismissable one-line banner above the header, remembered per site
+- **Announcement Bar** — Dismissable one-line banner (top/right/bottom/left/center), remembered per site
 - **Privacy-First Cookie Consent** — Banner appears only when a real integration is configured; a single accept/decline flag, nothing tracked
 - **Opt-in Comments (giscus)** — Consent-gated comments with palette-synced theme
-- **Keyboard Navigation** — Shortcuts for search (`/`), help (`?`), and close (`Esc`)
+- **"Powered by Void" badge** — Footer credit + dot-matrix badge (`void_showcase`)
+
+### Productivity (app layer)
+
+- **Reader Mode** — `Alt+Shift+R` distraction-free reading (chrome hidden, article re-measured, persisted)
+- **Action Cluster** — Floating hub (gears/notes/timer/reading) with per-action shortcuts and badges
+- **Focus Timer** — Built-in session timer in the TOC + reading-mode chip, chime + toast on complete
+- **Repo Popover** — Hover the repo link for description, stars, forks, issues, latest commit (cached)
+- **Keyboard Navigation** — Search (`/`), help (`?`), close (`Esc`), and every shortcut remappable
 - **Reduced Motion Support** — Animations disabled when `prefers-reduced-motion` is active
+
+### Developer & extensibility
+
+- **Command Shortcuts** — Custom rebindings and registered actions in `keyboard.custom`
+- **Design Tokens** — Override colors, typography, spacing, radius, transitions, shadows under `theme.void.*`
+- **Component Toggles** — Show/hide any piece via `components.*.show` (config only)
+- **Custom CSS/JS/head/body** — `custom_css`, `custom_js`, `extra_*`, `void_custom_head/body_*`, html-attr injection
+- **Config Builder** — Standalone dev tool generating a `mkdocs.yml` from grouped questions (gear in the cluster, OFF by default)
+- **AI-Readable Mode** — Watermarked Markdown mirrors per page, `llms.txt` + `llms-full.txt` for agents
+- **PWA & Offline** — Auto manifest, service-worker caching, CDN/local/bundle asset modes
+- **Social Cards & JSON-LD** — Per-page OG card images and Article structured data
+- **i18n** — Flat alias strings for search/TOC/labels
 - **SCSS Build Pipeline** — Sass compilation with PostCSS autoprefixer and cssnano minification
 
 ---
@@ -257,9 +301,12 @@ def hello():
 | [Cards](https://github.com/rkriad585/mkdocs-void/blob/main/docs/components/cards.md) | Card component with glass effects |
 | [Forms](https://github.com/rkriad585/mkdocs-void/blob/main/docs/components/forms.md) | Form elements and validation |
 | [Void Plugin](https://github.com/rkriad585/mkdocs-void/blob/main/docs/plugins/void.md) | Plugin configuration and options |
+| [Third-Party Integrations](https://github.com/rkriad585/mkdocs-void/blob/main/docs/plugins/integrations.md) | Recipe-grade setups (search, glightbox, table-reader, print-site, awesome-pages) |
+| [Identity & i18n](https://github.com/rkriad585/mkdocs-void/blob/main/docs/identity.md) | Branding, breadcrumbs, PWA, translation guide |
 | [Architecture](https://github.com/rkriad585/mkdocs-void/blob/main/docs/architecture.md) | Project structure and internals |
 | [Development](https://github.com/rkriad585/mkdocs-void/blob/main/docs/development.md) | Contributing and dev workflow |
 | [Deployment](https://github.com/rkriad585/mkdocs-void/blob/main/docs/deployment.md) | Build and deployment guide |
+| [Performance](https://github.com/rkriad585/mkdocs-void/blob/main/docs/performance.md) | Page-weight budget and how performance is guarded |
 | [Troubleshooting](https://github.com/rkriad585/mkdocs-void/blob/main/docs/troubleshooting.md) | Common issues and fixes |
 | [Benchmarks](https://github.com/rkriad585/mkdocs-void/blob/main/docs/benchmarks.md) | CI-regenerated page-weight + Lighthouse receipts |
 | [FAQ](https://github.com/rkriad585/mkdocs-void/blob/main/docs/faq.md) | Frequently asked questions |
@@ -308,7 +355,7 @@ Void is a **MkDocs theme** — it provides HTML templates, CSS, and JavaScript t
 ```tree
 mkdocs-void/
 ├── void/                          # Python package
-│   ├── __init__.py                  # Version (0.1.2)
+│   ├── __init__.py                  # Version (0.2.2)
 │   ├── plugins/
 │   │   └── void_plugin.py         # MkDocs plugin (theme defaults)
 │   ├── templates/
@@ -438,6 +485,15 @@ npm run dev
 ```bash
 mkdocs serve
 ```
+
+### Docs Health
+
+- The documentation (`docs/**`) and every README in this repository **never
+  link to, embed, or depend on planning artifacts** (`PLAN.md`, `WHY_PLAN.md`,
+  `DOCS_WIKI_PLAN.md`). They stand on their own and link only user-facing pages.
+- The config reference is generated, not hand-written:
+  `python tools/emit_config_reference.py` →
+  `docs/_config_ref.generated.md` (snippets-included into the Configuration page).
 
 ### Lint
 
