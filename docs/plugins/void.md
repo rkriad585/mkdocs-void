@@ -205,8 +205,8 @@ provider. Comments are **hidden by default**; set `enabled: true` to show them.
 Both `repo` and `repo_id` are required before anything loads; when a
 consent-serving integration is present, the scripts are deferred until the
 reader accepts. The giscus theme follows the active palette with per-scheme
-themes in `theme.light` / `theme.dark`. Grab the exact IDs on the [giscus setup
-page](https://giscus.app) for your repository.
+themes in `light` / `dark` (`comments.theme`). Grab the exact IDs on the [giscus setup
+page](https://giscus.app) for your repository. `theme.analytics.gtag` is honored by the theme as a Google Analytics passthrough.
 
 Use an **Announcements**-type category so only maintainers and the giscus bot
 can start discussions. With `mapping: pathname` each page maps to a discussion

@@ -8,7 +8,7 @@ date: 2026-09-18
        data-md-scheme-light="https://github.com/rkriad585/mkdocs-void/raw/main/docs/assets/images/logo-light.svg">
 </p>
 
-<h1 align="center">Welcome to Void</h1>
+# Welcome to Void
 
 <p align="center">
   <strong>Glass + NothingOS Design Language for MkDocs</strong>

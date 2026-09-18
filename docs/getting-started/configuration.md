@@ -377,7 +377,7 @@ exact `repo_id` / `category_id` on the [giscus setup page](https://giscus.app).
 | `mapping` | `"pathname"` | `pathname`, `url`, `title`, `og:title`, or `specific` |
 | `term` | `""` | Term used with the `specific` mapping |
 | `language` | `""` | giscus language code (falls back to giscus default) |
-| `theme.light` / `theme.dark` | `"light"` / `"dark"` | giscus themes for each palette |
+| `light` / `dark` | `"light"` / `"dark"` | giscus theme per palette — nested under `comments.theme` |
 
 ```yaml
 theme:

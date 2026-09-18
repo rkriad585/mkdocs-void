@@ -88,7 +88,7 @@ Comments are a separate, fully opt-in integration. See [Plugins → Void Plugin]
 - Only the `giscus` provider is supported today.
 - Nothing is loaded until both `repo` and `repo_id` are configured.
 - When a cookie-consent-serving integration is present, the giscus script is deferred until the reader clicks **Accept**. No third-party request happens before that.
-- The giscus theme follows the active palette (`theme.light` / `theme.dark` in `comments.theme`) and re-syncs when the scheme changes.
+- The giscus theme follows the active palette (`light` / `dark` under `theme.void.comments.theme`) and re-syncs when the scheme changes.
 
 ```yaml
 theme:

@@ -48,6 +48,9 @@ jobs:
       - name: Build documentation
         run: mkdocs build --strict --clean
 
+      - name: Doc health checks
+        run: python tools/check_docs.py
+
       - name: Verify site
         run: |
           test -f site/index.html || { echo "ERROR: site/index.html not found"; exit 1; }

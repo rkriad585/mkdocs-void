@@ -8,7 +8,9 @@ title: Math
 Void renders mathematical notation with **KaTeX**, loaded lazily from a CDN only when a page contains math. It integrates with `pymdownx.arithmatex`, which is enabled in the theme's `mkdocs.yml`.
 
 !!! note
-    Math is enabled by default (`theme.void.math: true`). To disable it, set `math: false` in `mkdocs.yml` under `extra`.
+    Math is enabled by default. To disable it entirely set
+    `extra.void_math: false` in `mkdocs.yml`; to only hide the loader for a
+    single component category use `theme.void.components.math.show: false`.
 
 ## Inline math
 
