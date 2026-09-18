@@ -109,8 +109,6 @@ def check_plan_links() -> list[str]:
 def check_doc_links() -> list[str]:
     bad = []
     for page in DOCS.rglob("*.md"):
-        if page.name == "_config_ref.generated.md":
-            continue
         text = _strip_code(page.read_text(encoding="utf-8"))
         for link in MD_LINK.findall(text):
             if "://" in link or link.startswith(("#", "mailto:")):
@@ -128,7 +126,8 @@ def check_screenshots() -> list[str]:
     referenced = set()
     for page in DOCS.rglob("*.md"):
         referenced.update(SHOT_REF.findall(page.read_text(encoding="utf-8")))
-    actual = {p.name for p in SHOTS.glob("*.png")} if SHOTS.exists() else set()
+    shot_dirs = [SHOTS, DOCS / "Screenshots"]
+    actual = {p.name for d in shot_dirs if d.exists() for p in d.glob("*.png")}
     bad = []
     bad += [
         f"Screenshots/{name} referenced but missing"
@@ -151,6 +150,15 @@ def _config_surface():
     }
     top_level = set(plugin.VoidPlugin._void_defaults)
     top_level.update(token_groups)
+    top_level.update(name for name, _ in plugin.VoidPlugin.config_scheme)
+
+    top_level.update(plugin._VOID_DEFAULT_COMPONENTS)
+    try:
+        import emit_config_reference as emit
+
+        top_level.update(emit.DEFAULT_TITLES.values())
+    except Exception:  # noqa: BLE001 - fall back to plugin-level surfaces only
+        pass
 
     top_level.update(re.findall(r"""void\[\s*["'](\w+)["']\s*\]""", source))
     top_level.update(re.findall(r"""void\s*=\s*void\.get\(\s*["'](\w+)["']""", source))
@@ -185,9 +193,8 @@ def check_config_keys() -> list[str]:
                     continue  # bare `theme.void` namespace mention
                 first, rest = parts[2], parts[3:]
                 if first not in top_level:
-                    bad.append(
-                        f"{page.name}: unknown theme.void.{first}.{'.'.join(rest)}"
-                    )
+                    suffix = f".{'.'.join(rest)}" if rest else ""
+                    bad.append(f"{page.name}: unknown theme.void.{first}{suffix}")
                 elif (
                     first in token_groups
                     and rest
@@ -206,8 +213,6 @@ def check_config_keys() -> list[str]:
 def check_h1_and_todos() -> list[str]:
     bad = []
     for page in DOCS.rglob("*.md"):
-        if page.name == "_config_ref.generated.md":
-            continue
         text = _strip_code(page.read_text(encoding="utf-8"))
         count = len(H1.findall(text))
         if count != 1:

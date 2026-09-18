@@ -1,5 +1,5 @@
 ---
-date: 2026-09-07
+date: 2026-09-18
 title: Showcase
 ---
 
@@ -47,8 +47,7 @@ Here are the highlights:
 
 ```bash
 pip install mkdocs-void
-mkdocs init --theme void my-docs
-cd my-docs
+void new my-docs && cd my-docs
 mkdocs serve
 ```
 

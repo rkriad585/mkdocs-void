@@ -1,0 +1,536 @@
+# Kitchen-sink mkdocs.yml override - every theme.void option set to its
+# shipped default. Copy what you need and remove the rest.
+theme:
+  name: void
+  void:
+
+    # ---- Basics
+    animation: "normal"  # animation: "normal"   # "normal" | "reduced" | "none"
+    border: "thin"  # border: "thin"   # "thin" | "thick" | "none"
+    dot_matrix: true  # dot_matrix: true
+    glass: "medium"  # glass: "medium"   # "light" | "medium" | "heavy" | "none"
+    highlight: true  # highlight: true
+    notes: true  # notes: true
+
+    # ---- components
+    components:
+      admonitions:
+        show: true
+      announcement_bar:
+        show: true
+      code:
+        show_copy_button: true
+      content:
+        show: true
+        show_back_to_top: true
+        show_progress_bar: true
+      cookie_consent:
+        show: true
+      feedback:
+        show: true
+      footer:
+        copyright_text: ""
+        show: true
+        show_copyright: true
+        show_meta: true
+        show_prev_next: true
+      giscus:
+        show: true
+      header:
+        show: true
+        show_logo: true
+        show_page_title: true
+        show_palette_toggle: true
+        show_repo_link: true
+        show_search: true
+        show_site_name: true
+      highlighting:
+        cdn_css_url: ""
+        cdn_url: ""
+        show: true
+        theme_dark: "github-dark"
+        theme_light: "github"
+      keyboard_help:
+        show: true
+      math:
+        cdn_css_url: ""
+        cdn_url: ""
+        show: true
+      mermaid:
+        cdn_url: ""
+        show: true
+      notes:
+        show: true
+      prefetch:
+        exclude: []
+        external: false
+        show: true
+      repo_popover:
+        fields: ["description", "owner_bio", "author", "followers", "public_repos", "location", "stars", "watchers", "forks", "open_issues", "language", "license", "default_branch", "commits", "tags", "latest_commit", "commit_msg", "created", "updated", "pushed"]
+        show: true
+      search:
+        placeholder: "Search..."
+        shortcut_key: "/"
+        show: true
+      sidebar:
+        show: true
+      tags:
+        show: true
+      toast:
+        show: true
+      toc:
+        show: true
+        show_level_h2: true
+        show_level_h3: true
+        show_level_h4: true
+        title: "On this page"
+
+    # ---- Design tokens - border_radius
+    border_radius:
+      large: "12px"
+      medium: "8px"
+      small: "4px"
+
+    # ---- Design tokens - colors
+    colors:
+      background: "#ffffff"
+      border: "transparent"
+      overlay: "rgba(0, 0, 0, 0.5)"
+      primary: "#ff3030"
+      primary_dark: "#c62828"
+      primary_light: "rgba(255, 48, 48, 0.3)"
+      surface: "transparent"
+      surface_light: "transparent"
+      text: "#000000"
+      text_secondary: "rgba(0, 0, 0, 0.7)"
+
+    # ---- Design tokens - shadows
+    shadows:
+      large: "0 8px 32px rgba(0, 0, 0, 0.16)"
+      medium: "0 4px 12px rgba(0, 0, 0, 0.12)"
+      small: "0 1px 2px rgba(0, 0, 0, 0.08)"
+
+    # ---- Design tokens - spacing
+    spacing:
+      content_max_width: "900px"
+      content_padding: "40px 32px"
+      header_height: "56px"
+      section_gap: "40px"
+      sidebar_width: "280px"
+      toc_width: "240px"
+
+    # ---- Design tokens - transitions
+    transitions:
+      duration: "250ms"
+      easing: "cubic-bezier(0.4, 0, 0.2, 1)"
+
+    # ---- Design tokens - typography
+    typography:
+      font_family: "'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif"
+      font_family_display: "'Space Grotesk', sans-serif"
+      font_family_mono: "'Space Mono', 'SF Mono', Consolas, monospace"
+      font_size_base: "16px"
+      font_size_lg: "18px"
+      font_size_sm: "14px"
+      heading_letter_spacing: "-0.02em"
+      heading_weight: "700"
+      line_height: "1.7"
+
+    # ---- keyboard
+    keyboard:
+      custom: []
+      enabled: true
+      shortcuts:
+        close:
+          enabled: true
+          key: "Escape"
+          label: "Close active overlay"
+        help:
+          enabled: true
+          key: "?"
+          label: "Show keyboard shortcuts"
+        search:
+          enabled: true
+          key: "/"
+          label: "Open search"
+        search_down:
+          enabled: true
+          key: "ArrowDown"
+          label: "Navigate search results down"
+        search_open:
+          enabled: true
+          key: "Enter"
+          label: "Open selected result"
+        search_up:
+          enabled: true
+          key: "ArrowUp"
+          label: "Navigate search results up"
+        tab_left:
+          enabled: true
+          key: "ArrowLeft"
+          label: "Switch to previous tab"
+        tab_right:
+          enabled: true
+          key: "ArrowRight"
+          label: "Switch to next tab"
+        toggle_notes:
+          enabled: true
+          key: "Ctrl+Shift+N"
+          label: "Toggle notes panel"
+        toggle_reading_mode:
+          enabled: true
+          key: "Alt+Shift+R"
+          label: "Toggle reading mode"
+          persisted: true
+        toggle_repo_popover:
+          enabled: true
+          key: "Ctrl+Shift+G"
+          label: "Toggle repo popover"
+        toggle_scheme:
+          enabled: true
+          key: "Ctrl+Shift+L"
+          label: "Toggle color scheme"
+        toggle_sidebar:
+          enabled: true
+          key: "Ctrl+Shift+B"
+          label: "Toggle sidebar"
+          persisted: true
+        toggle_toc:
+          enabled: true
+          key: "Ctrl+Shift+T"
+          label: "Toggle table of contents"
+          persisted: true
+
+    # ---- reading_mode
+    reading_mode:
+      enabled: true
+      notes:
+        open_on_enter: false
+        show: true
+      persisted: true
+      sections:
+        footer: true
+        header: true
+        progress: true
+        sidebar: true
+        toc: true
+      shortcut_key: "Alt+Shift+R"
+      typography:
+        font_size: "1.125rem"
+        line_height: "1.75"
+        measure: "100%"
+
+    # ---- action_cluster
+    action_cluster:
+      actions: [{"id": "keyboard_help", "icon": "help", "label": "Keyboard shortcuts", "shortcut": "?", "badge": "none", "enabled": true}, {"id": "notes", "icon": "notes", "label": "Open notes panel", "shortcut": "Ctrl+Shift+N", "badge": "none", "enabled": true}, {"id": "timer", "icon": "timer", "label": "Focus timer", "shortcut": "Alt+Shift+T", "badge": "time", "enabled": true}, {"id": "reading_mode", "icon": "reading", "label": "Reading mode", "shortcut": "Alt+Shift+R", "badge": "none", "enabled": true}]
+      behavior:
+        animation: "normal"
+        close_on_escape: true
+        close_on_outside: true
+        close_on_select: true
+        focus_trap: true
+        min_actions: 2
+        tooltips: true
+      enabled: true
+      main:
+        glass: true
+        icon: "plus"
+        icon_transform: true
+        size: "44px"
+      offset:
+        bottom: "16px"
+        left: "16px"
+      position: "bottom-left"
+      replaces_notes_button: true
+
+    # ---- config_builder
+    config_builder:
+      cluster_action: true
+      enabled: false
+      open_target: "_blank"
+      toc_footer: true
+      url: "assets/config-builder.html"
+
+    # ---- timer
+    timer:
+      badge_in_cluster: true
+      colors:
+        progress: "#8a5a33"
+      default_minutes: 25
+      display_format: "mm:ss"
+      document_title: false
+      enabled: true
+      notifications:
+        enabled: true
+        sound: true
+        toast: true
+      persist: true
+      reading:
+        show: true
+      settings_popup: true
+      start_with_reading: false
+      toc:
+        position: "bottom"
+        show: true
+        style: "ring"
+
+    # ---- content
+    content:
+      admonitions:
+        enabled: true
+        types:
+          danger:
+            color: ""
+            icon: ""
+          info:
+            color: ""
+            icon: ""
+          note:
+            color: ""
+            icon: ""
+          success:
+            color: ""
+            icon: ""
+          tip:
+            color: ""
+            icon: ""
+          warning:
+            color: ""
+            icon: ""
+      back_to_top_label: "Back to top"
+      back_to_top_threshold: 500
+      code:
+        annotate: true
+        copied_label: ""
+        copy_label: ""
+        highlight_lines: true
+        line_number_color: ""
+        line_number_start: 1
+        show_copy_button: true
+        show_line_numbers: false
+      glass: false
+      max_width: ""
+      padding: ""
+      progress_bar_color: ""
+      show_back_to_top: true
+      show_progress_bar: true
+      tables:
+        bordered: false
+        responsive: true
+        striped: false
+      task_lists:
+        custom_checkbox: true
+        enabled: true
+        persist_state: true
+      typography:
+        anchor_symbol: ""
+        heading_anchor: true
+        image_behavior: "normal"
+        image_lightbox: true
+        link_behavior: "smooth"
+        video_behavior: "responsive"
+
+    # ---- ai_reader
+    ai_reader:
+      auto_title: true
+      description: ""
+      enabled: true
+      exclude: []
+      llms: true
+      llms_full: true
+      markup: true
+      overwrite: false
+      sitemap: true
+      url_style: "sidecar"
+      watermark:
+        enabled: true
+        footer: true
+        header: true
+        include_generated: true
+        include_site: true
+        include_url: true
+        include_version: true
+        text: "Generated by Void for AI agents."
+
+    # ---- social_cards
+    social_cards:
+      cards: true
+      enabled: true
+      jsonld: true
+
+    # ---- meta
+    meta:
+      branch: "main"
+      date_source: "auto"
+      edit_label: "Edit this page"
+      enabled: true
+      last_updated_label: "Last updated"
+      show_edit_on_github: true
+      show_last_updated: true
+      source_dir: "docs"
+
+    # ---- feedback
+    feedback:
+      enabled: true
+      github_labels: ["feedback"]
+      negative: "No \u2014 open an issue"
+      positive: "Yes \u2014 thanks!"
+      show: true
+      title: "Was this page helpful?"
+
+    # ---- announcement_bar
+    announcement_bar:
+      dismissable: true
+      enabled: false
+      position: "bottom"
+      show: true
+      text: ""
+
+    # ---- cookie_consent
+    cookie_consent:
+      accept_label: "Accept"
+      decline_label: "Decline"
+      enabled: true
+      message: "This site stores nothing about you unless you enable integrations."
+      position: "bottom"
+      privacy_policy: ""
+      render: "auto"
+      show: true
+
+    # ---- comments
+    comments:
+      category: ""
+      category_id: ""
+      enabled: false
+      language: ""
+      mapping: "pathname"
+      provider: "giscus"
+      repo: ""
+      repo_id: ""
+      term: ""
+      theme:
+        dark: "dark"
+        light: "light"
+
+    # ---- i18n
+    i18n:
+      a11y:
+        breadcrumb: "Breadcrumb"
+        skipToContent: "Skip to content"
+      clipboard:
+        copied: "Copied to clipboard"
+        copy: "Copy to clipboard"
+        copyLink: "Copy link"
+        copyLinkFailed: "Copy link failed \u2014 clipboard unavailable"
+        linkCopied: "Link copied"
+      comments:
+        title: "Comments"
+      footer:
+        next: "Next"
+        poweredBy: "Powered by Void"
+        previous: "Previous"
+      help:
+        title: "Keyboard shortcuts"
+      navigation:
+        label: "Navigation"
+      notes:
+        add: "+ Add note"
+        cancel: "Cancel"
+        close: "Close notes"
+        colorPrefix: "Color "
+        delete: "Delete"
+        empty: "No notes yet."
+        exportJson: "Export .json"
+        exportMd: "Export .md"
+        notes: "Notes"
+        placeholder: "Write a note\u2026"
+        save: "Save"
+        saveChanges: "Save changes"
+      repo:
+        author: "Author"
+        commitMsg: "Last commit msg"
+        commits: "Commits"
+        created: "Created"
+        defaultBranch: "Default branch"
+        followers: "Followers"
+        forks: "Forks"
+        language: "Language"
+        latestCommit: "Latest commit"
+        latestTag: "latest "
+        license: "License"
+        licenseNone: "None"
+        loadError: "Unable to load repo data"
+        location: "Location"
+        noPublicData: "No public data"
+        openIssues: "Open issues"
+        publicRepos: "Public repos"
+        pushed: "Last pushed"
+        stars: "Stars"
+        status: "Status"
+        tags: "Tags"
+        updated: "Last updated"
+        watchers: "Watchers"
+      search:
+        loadError: "Search index could not be loaded."
+        loading: "Loading search..."
+        noResults: "No results found"
+        placeholder: "Search"
+        results: "Results"
+        startTyping: "Start typing to search..."
+        suggestions: "Search suggestions"
+      timer:
+        bar: "Bar"
+        bottom: "Bottom"
+        cancel: "Cancel"
+        chime: "Chime on completion"
+        close: "Close"
+        complete: "Focus session complete"
+        controls: "Timer controls"
+        digits: "Digits"
+        focus: "Focus"
+        readingChip: "Reading-mode chip"
+        reset: "Reset timer"
+        restart: "Restart timer"
+        ring: "Ring"
+        sessionLength: "Session length (minutes)"
+        settings: "Focus timer settings"
+        start: "Start timer"
+        startSession: "Start session"
+        stop: "Stop timer"
+        title: "Focus Timer"
+        toastNotify: "Toast on completion"
+        tocPosition: "TOC timer position"
+        tocStyle: "TOC timer style"
+        top: "Top"
+      toc:
+        backToTop: "Back to top"
+        title: "On this page"
+      zoom:
+        close: "Close preview"
+        copyImage: "Copy image"
+        downloadImage: "Download image"
+        next: "Next image"
+        preview: "Image preview"
+        previous: "Previous image"
+        zoomIn: "Zoom in"
+        zoomOut: "Zoom out"
+
+    # ---- breadcrumbs
+    breadcrumbs:
+      show: true
+
+    # ---- pwa
+    pwa:
+      background_color: "#111114"
+      display: "standalone"
+      icons: true
+      manifest: true
+      start_url: ""
+      theme_color: ""
+
+    # ---- assets
+    assets:
+      inline_critical_css: false
+      mode: "cdn"
+      timeout: 20
+      vendor_dir: "assets/vendor"

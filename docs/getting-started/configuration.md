@@ -407,18 +407,34 @@ the theme re-targets that link to `localhost:{port}/guide/` at runtime, so a
 click never leaves the preview. External links, relative links, and the deployed
 origin itself are never touched.
 
-## Generated reference
+## Options reference index
 
-The canonical reference below is emitted from the plugin's own source tables
-(`_VOID_TOKEN_MAP`, `_void_defaults`, and the `_VOID_DEFAULT_*` dicts) by
-`tools/emit_config_reference.py`. Regenerate it any time the plugin changes so
-docs and config can never drift:
+Every `theme.void.*` key is documented per-key — Default, CSS variable, a
+purpose, and a copyable example — in the generated reference pages below. They
+are emitted from the plugin's own source tables (`_VOID_TOKEN_MAP`,
+`_void_defaults`, and the `_VOID_DEFAULT_*` dicts) by
+`tools/emit_config_reference.py`, so they can never drift from shipped code
+(CI re-checks them on every build):
+
+| Page | Covers |
+|------|--------|
+| [Basics & design tokens](configuration/tokens.md) | `glass`, `dot_matrix`, `animation`, `border`, `highlight`, `notes`, plus every design-token group: `colors`, `spacing`, `typography`, `border_radius`, `shadows`, `transitions` |
+| [Components](configuration/components.md) | Show/hide toggles and options for the chrome: header, sidebar, TOC, content, search, notes, footer, code, admonitions, mermaid, math, highlighting, cookie consent, giscus, toast, tags, feedback, announcement bar, keyboard help, prefetch, repo popover — with before/after screenshots for the toggle switches |
+| [Shortcuts & interaction](configuration/shortcuts.md) | `keyboard`, `reading_mode`, `action_cluster`, `timer` |
+| [Content & AI](configuration/content.md) | `content`, `config_builder`, `ai_reader` |
+| [Site, integrations & PWA](configuration/site.md) | `social_cards`, `meta`, `feedback`, `announcement_bar`, `cookie_consent`, `comments`, `breadcrumbs`, `pwa`, `assets` |
+| [i18n UI strings](configuration/i18n.md) | Every user-facing string in the chrome |
+
+Every option at a glance:
+
+- [Kitchen sink](kitchen-sink.md) — a copy-paste `mkdocs.yml` block with every
+  `theme.void.*` key set to its shipped default.
+
+Regenerate the reference any time the plugin changes:
 
 ```bash
 python tools/emit_config_reference.py
 ```
-
---8<-- "_config_ref.generated.md"
 
 ### `extra.void_showcase`
 

@@ -155,28 +155,21 @@ This installs both the Void theme and the companion MkDocs plugin automatically.
    pip install mkdocs-void
    ```
 
-2. Create a new MkDocs project:
+2. Scaffold a new project with Void's CLI — it pre-enables the theme and the
+   `void` plugin:
 
    ```bash
-   mkdocs new my-docs
+   void new my-docs
    cd my-docs
    ```
 
-3. Set the theme in `mkdocs.yml`:
-
-   ```yaml
-   site_name: My Docs
-   theme:
-     name: void
-   ```
-
-4. Start the dev server:
+3. Start the dev server:
 
    ```bash
    mkdocs serve
    ```
 
-5. Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
+4. Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
 
 ---
 

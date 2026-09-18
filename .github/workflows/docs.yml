@@ -48,6 +48,9 @@ jobs:
       - name: Build documentation
         run: mkdocs build --strict --clean
 
+      - name: Config reference must be current
+        run: python tools/emit_config_reference.py --check
+
       - name: Doc health checks
         run: python tools/check_docs.py
 

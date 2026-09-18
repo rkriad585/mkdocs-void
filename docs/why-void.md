@@ -1,5 +1,5 @@
 ---
-date: 2026-09-07
+date: 2026-09-18
 title: Why Void
 ---
 
@@ -34,32 +34,40 @@ Every decision in Void serves these three commitments:
 !!! note
     These are not aspirational. Each pillar maps to shipped, verified code in
     this repository — the design system, the SPA + service worker, and the
-    config-driven asset loading.
+    config-driven asset loading. See [Architecture](architecture.md) for the
+    internals and [Performance](performance.md) for the page-weight budget.
 
 ## Why not Material?
 
 Material for MkDocs is the 800-pound gorilla — and it has **stopped evolving**.
-As of late 2025 / early 2026 the project explicitly entered **maintenance
-mode**: all paid "Insiders" features were folded into MIT, the feature list
-froze, and new work moved to a separate successor. That means no new features
-will ever ship upstream.
+On 2025-11-06 the project formally entered **maintenance mode**: critical bug
+and security fixes will continue until November 2026, but no new features will
+ship. The 9.7.0 release (2025-11-11) folded every previously paid "Insiders"
+feature into the MIT edition, and the team's new feature work moved to a
+successor project, **Zensical**.
 
-Void is the actively-maintained alternative. It is not a Material clone — it
-is a different design language that prioritizes three things Material was never
-built around: a distinctive visual identity, speed, and privacy.
+Void is the actively-maintained alternative in the same ecosystem. It is not a
+Material clone — it is a different design language that prioritizes three
+things Material was never built around: a distinctive visual identity, speed,
+and privacy.
 
-The honest comparison (dated 2026-09):
+The honest comparison (dated 2026-09-18):
 
 | Capability | Void | Material for MkDocs |
 |-----------|--------|---------------------|
 | Design language | Glass + NothingOS (distinctive) | Material Design (universal, bland) |
-| Actively maintained | Yes — this repo | Maintenance mode; frozen |
-| Zero-config distinctive look | ✅ | ❌ (all look alike) |
-| SPA navigation | ✅ | ✅ |
-| Service-worker caching | ✅ | ✅ |
-| Privacy-first defaults | ✅ no trackers, self-hostable | 🟡 CDN-dependent |
-| Config-first custom CSS | ✅ token overrides | ✅ |
-| Full config from one YAML | ✅ | ✅ |
+| Actively maintained | Yes — this repo | Maintenance mode; new features frozen |
+| Zero-config distinctive look | Yes | No (all look alike) |
+| SPA navigation | Yes | Yes |
+| Service-worker caching | Yes | Yes |
+| Privacy-first defaults | Yes — no trackers, self-hostable | CDN-dependent |
+| Config-first custom CSS | Yes — token overrides | Yes |
+| Full config from one YAML | Yes | Yes |
+
+*Sources — [maintenance-mode announcement](https://github.com/squidfunk/mkdocs-material/issues/8523)
+(2025-11-06), [release notes](https://github.com/squidfunk/mkdocs-material/releases)
+(9.7.0 folded Insiders into MIT; fixes committed through November 2026),
+[project repository](https://github.com/squidfunk/mkdocs-material).*
 
 Void wins on the two axes developers actually feel: **identity** and
 **maintenance pace**.
@@ -74,6 +82,27 @@ and reading mode — no custom CSS, no theming homework.
 
 If you want your docs to be remembered, start from the theme that forgot to be
 boring.
+
+## Honest limitations
+
+No theme is free of trade-offs, and Void documents its own:
+
+- **No JavaScript.** The site still renders fully server-side — every page,
+  heading, and plain navigation link works — because MkDocs ships static HTML.
+  The *app layer* is inactive without JS: full-screen search, SPA transitions,
+  reading mode, palette toggle, focus timer, notes, and the service worker all
+  need a browser that runs scripts.
+- **`backdrop-filter` support.** The glass blur needs a modern Chromium,
+  Firefox, or Safari/WebKit engine. On engines without it, glass surfaces fall
+  back to a semi-transparent flat panel — the layout, colors, and hierarchy are
+  unchanged, only the blur is lost.
+- **GitHub rate limits on the repo popover.** The repo popover reads the public
+  GitHub REST API unauthenticated and caches results. Unauthenticated requests
+  share an IP-based rate budget, so during bursts the popover can serve stale or
+  delayed data — it degrades gracefully to a plain link either way.
+- **Search index size.** Search runs fully client-side, so a very large
+  documentation set (tens of thousands of pages) will slow the index build and
+  the query path. For such sites, pair Void with an external search provider.
 
 ---
 

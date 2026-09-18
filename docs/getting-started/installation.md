@@ -26,9 +26,12 @@ pip install mkdocs-void
 ## Create a project
 
 ```bash
-mkdocs new my-docs
+void new my-docs
 cd my-docs
 ```
+
+`void new` scaffolds a ready-to-run project — `mkdocs.yml` (theme + plugin
+already enabled) and `docs/index.md`. Already have a project?
 
 ## Enable the theme
 
@@ -38,6 +41,14 @@ Replace the contents of `mkdocs.yml`:
 site_name: My Docs
 theme:
   name: void
+```
+
+and add the plugin under `plugins:`:
+
+```yaml
+plugins:
+  - search
+  - void
 ```
 
 ## Serve

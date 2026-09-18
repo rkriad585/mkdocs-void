@@ -8,11 +8,11 @@ site_url: https://rkriad585.github.io/mkdocs-void
 repo_url: https://github.com/rkriad585/mkdocs-void
 repo_name: rkriad585/mkdocs-void
 
-# Intentionally not part of the nav: the auto-generated config reference is
-# pulled into Configuration via a snippets include, not linked as its own page.
-# Keeping it listed here silences the "page not included in nav" warning.
+# Intentionally not part of the nav: the auto-generated kitchen-sink override
+# is pulled into the Kitchen Sink page via a snippets include, not linked as its
+# own page. Keeping it listed here silences the "page not included in nav" warning.
 not_in_nav: |
-  _config_ref.generated.md
+  getting-started/configuration/_kitchen_sink.generated.yml
 
 copyright: "&copy; 2025 rkriad585. Built with Void."
 
@@ -37,9 +37,9 @@ theme:
   # Drives the Google Fonts <link> AND the --void-font-body / --void-font-mono
   # tokens, so the body/code stacks update automatically. Overrides any matching
   # theme.void.typography value; defaults are Space Grotesk / Space Mono.
-  font:
-    text: Space Grotesk
-    code: Space Mono
+  # font:
+  #  text: Space Grotesk
+ #   code: Space Mono
   # features: is a Material-compatible passthrough — every behavior below ships
   # enabled by default, so the list does not gate anything. Keep it or drop it;
   # to change a behavior use a theme.void.* switch instead.
@@ -914,6 +914,15 @@ nav:
     - Installation: getting-started/installation.md
     - Configuration: getting-started/configuration.md
     - Quick Start: getting-started.md
+    - Model Project: getting-started/model-project.md
+    - Kitchen Sink: getting-started/kitchen-sink.md
+    - Reference:
+      - Basics & design tokens: getting-started/configuration/tokens.md
+      - Components: getting-started/configuration/components.md
+      - Shortcuts & interaction: getting-started/configuration/shortcuts.md
+      - Content & AI: getting-started/configuration/content.md
+      - Site, integrations & PWA: getting-started/configuration/site.md
+      - i18n UI strings: getting-started/configuration/i18n.md
   - Design System:
     - Overview: design/overview.md
     - Colors: design/colors.md
