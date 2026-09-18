@@ -8,7 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 <!-- AUTO-CHANGELOG:start -->
 ### Commits since the last release (auto)
-- no commits since the last release
+- [Changed] chore: regenerate screenshots
+- [Changed] chore: release changelog for v0.2.2 [skip ci]
 <!-- AUTO-CHANGELOG:end -->
 
 
