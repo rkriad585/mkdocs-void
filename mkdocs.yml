@@ -930,6 +930,7 @@ nav:
     - Glass Effects: design/glass.md
     - Rebranding: design/rebranding.md
   - Identity & i18n: identity.md
+  - Translating Void: translating.md
   - Components:
     - Admonitions: components/admonitions.md
     - Notes: components/notes.md
@@ -968,6 +969,7 @@ nav:
     - PWA Manifest: features/pwa.md
     - Persistence: features/persistence.md
     - Repo Popover: features/repo-popover.md
+    - AI-Readable Mode: features/ai-readable.md
   - Architecture: architecture.md
   - Performance: performance.md
   - Benchmarks: benchmarks.md
