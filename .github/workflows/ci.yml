@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "void/**"
+      - "tools/**"
+      - "tests/**"
+      - "mkdocs.yml"
+      - "pyproject.toml"
+      - "package.json"
+      - "requirements.txt"
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "void/**"
+      - "tools/**"
+      - "tests/**"
+      - "mkdocs.yml"
+      - "pyproject.toml"
+      - "package.json"
+      - "requirements.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install Python dependencies
+        run: pip install -e .
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Build CSS
+        run: npm run build
+
+      - name: JS smoke tests
+        run: npm test
+
+      - name: Build documentation
+        run: mkdocs build --strict --clean
+
+      - name: Config reference must be current
+        run: python tools/emit_config_reference.py --check
+
+      - name: Doc health checks
+        run: python tools/check_docs.py
+
+      - name: Verify site
+        run: |
+          test -f site/index.html || { echo "ERROR: site/index.html not found"; exit 1; }
+          test -f site/search/search_index.json || { echo "ERROR: search index not found"; exit 1; }
+          echo "All checks passed"
