@@ -2,6 +2,11 @@
 
 Thank you for your interest in contributing to mkdocs-void.
 
+!!! tip "Full guide"
+    The detailed contributing guide lives in the docs:
+    **[Contributing to Void](docs/contributing.md)** — issue labels, PR
+    checklist, testing expectations, code style, and recipes.
+
 ## Getting Started
 
 1. Fork the repository

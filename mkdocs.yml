@@ -973,7 +973,18 @@ nav:
   - Benchmarks: benchmarks.md
   - Development: development.md
   - Deployment: deployment.md
-  - Troubleshooting: troubleshooting.md
-  - FAQ: faq.md
+  - Contributing: contributing.md
+  - Testing & Harnesses: testing.md
+  - Reference:
+    - Compatibility: reference/compatibility.md
+    - Migration: reference/migration.md
+    - Troubleshooting: troubleshooting.md
+    - FAQ: faq.md
+  - Learn:
+    - Overview: learn/index.md
+    - Level 1 — Explorer: learn/explorer.md
+    - Level 2 — Maker: learn/maker.md
+    - Level 3 — Customizer: learn/customizer.md
+    - Level 4 — Contributor: learn/contributor.md
   - Screenshots: screenshots.md
   - About: about.md
