@@ -348,7 +348,7 @@ Void is a **MkDocs theme** — it provides HTML templates, CSS, and JavaScript t
 ```tree
 mkdocs-void/
 ├── void/                          # Python package
-│   ├── __init__.py                  # Version (0.2.2)
+│   ├── __init__.py                  # Version (0.3.0)
 │   ├── plugins/
 │   │   └── void_plugin.py         # MkDocs plugin (theme defaults)
 │   ├── templates/

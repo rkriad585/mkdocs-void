@@ -117,7 +117,7 @@ theme:
     timer:
       default_minutes: 25
     announcement_bar:
-      text: "v0.2.2 is live"
+      text: "v0.3.0 is live"
       position: top
       pinned: false
 

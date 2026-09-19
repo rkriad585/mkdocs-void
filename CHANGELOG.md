@@ -11,6 +11,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - no commits since the last release
 <!-- AUTO-CHANGELOG:end -->
 
+## [0.3.0] - 2026-09-19
+
+### Added
+
+- Complete documentation overhaul (phases 4-8): 15 feature pages, 4 learning levels, contributing/testing/reference guides
+- AI-readable mode docs (llms.txt, per-page mirrors, watermarks)
+- Translating Void guide with full i18n string inventory
+- Wiki sync workflow + seed pages
+- CI gate workflow (PR checks: npm test, mkdocs build --strict, check_docs.py)
+- `void doctor` health check documentation
+- Learning curve track (Explorer, Maker, Customizer, Contributor)
+
+### Fixed
+
+- Nav sections collapsed by default on first visit (previously expanded)
+
+### Changed
+
+- Removed planning artifacts (PLAN.md, WHY_PLAN.md, RENAME-PLAN.md, DOCS_WIKI_PLAN.md)
+- Version bumped to 0.3.0
 
 ## [0.3.0] - 2026-09-19
 

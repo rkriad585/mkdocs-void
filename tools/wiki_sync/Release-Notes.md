@@ -1,6 +1,17 @@
 # Release Notes
 
-## v0.2.2 (latest)
+## v0.3.0 (latest)
+
+- **Docs overhaul** — complete rewrite of component/design/feature pages
+- **Wiki sync** — auto-synced wiki seed pages on release
+- **CI gate** — PR workflow with npm test + doc health checks
+- **Nav fix** — sections collapsed by default, remembers user choice
+- **CLI** — `void new` scaffold + `void doctor` health check
+- **AI-readable mode** — llms.txt, per-page mirrors, watermarks
+- **Translating guide** — full i18n string inventory
+- **Learning curve** — 4-level tutorial track (Explorer to Contributor)
+
+## v0.2.2
 
 - **Glass system** — configurable intensity (light/medium/heavy)
 - **Action cluster** — floating menu with customizable actions
