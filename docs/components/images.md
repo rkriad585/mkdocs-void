@@ -5,11 +5,21 @@ title: Images & SVG
 
 # Images & SVG
 
+## What it is
+
 Void provides styled image handling and a flexible way to embed SVG content, all driven by the standard `attr_list` extension so you can attach component classes directly to Markdown images.
 
-## Standard images
+## When to use it
 
-Images get the glass treatment automatically: rounded corners, subtle border, and maximum width constraint.
+Standard images need no classes — the glass treatment applies automatically.
+Reach for the image classes when you want a circular crop, a ghosted/dimmed
+look, a banner, or a thumbnail. Use `.void-svg` when you want to drop raw
+SVG into a bordered glass panel.
+
+## In Markdown
+
+Images get the glass treatment automatically: rounded corners, subtle border,
+and maximum width constraint.
 
 ![Void logo](https://raw.githubusercontent.com/rkriad585/mkdocs-void/main/docs/assets/images/logo.svg){ width="120" }
 
@@ -17,27 +27,8 @@ Images get the glass treatment automatically: rounded corners, subtle border, an
 ![Void logo](https://raw.githubusercontent.com/rkriad585/mkdocs-void/main/docs/assets/images/logo.svg){ width="120" }
 ```
 
-## Image lightbox
-
-Click any content image (not wrapped in a link) to open a full-viewport preview
-overlay. Close with the × button, clicking the backdrop, the `Esc` key, or
-scrolling; navigate multiple openable images with the ← / → arrow keys. The
-overlay works with zero dependencies — no extra pip packages.
-
-```yaml
-theme:
-  void:
-    content:
-      typography:
-        image_lightbox: true   # default true
-```
-
-- Images inside a `<a>` (e.g. linked thumbnails) are deliberately left alone.
-- The overlay respects `prefers-reduced-motion` and locks body scroll while open.
-
-## Image classes via `attr_list`
-
-Attach any class directly to an image with the `{.class}` suffix — no HTML needed:
+Attach any class directly to an image with the `{.class}` suffix — no HTML
+needed (see [CSS Classes in Markdown](classes.md)):
 
 | Class | Effect |
 |-------|--------|
@@ -52,25 +43,61 @@ Attach any class directly to an image with the `{.class}` suffix — no HTML nee
 ![Banner](img.png){ .void-image--banner }
 ```
 
-## Figure with caption
-
-Use a small HTML `<figure>` for images with captions:
-
-<figure class="void-figure">
-  <img src="https://raw.githubusercontent.com/rkriad585/mkdocs-void/main/docs/assets/images/logo.svg" alt="Void logo" width="96">
-  <figcaption>Figure 1 — The Void logo</figcaption>
-</figure>
+For a caption, use a small HTML `<figure>`:
 
 ```html
 <figure class="void-figure">
-  <img src="https://raw.githubusercontent.com/rkriad585/mkdocs-void/main/docs/assets/images/logo.svg" alt="Void logo" width="96">
+  <img src="img.png" alt="Void logo" width="96">
   <figcaption>Figure 1 — The Void logo</figcaption>
 </figure>
 ```
 
-## Inline SVG component
+## Configuration
 
-Wrap raw SVG in a `.void-svg` container to get a bordered glass panel that centers and scrolls the artwork:
+### Image lightbox
+
+Click any content image (not wrapped in a link) to open a full-viewport preview
+overlay. Close with the × button, clicking the backdrop, the `Esc` key, or
+scrolling; navigate multiple openable images with the ← / → arrow keys. The
+overlay works with zero dependencies — no extra pip packages.
+
+```yaml
+theme:
+  void:
+    content:
+      typography:
+        image_lightbox: true   # default true
+```
+
+### The `.void-svg` container
+
+Wrap raw SVG in a `.void-svg` container to get a bordered glass panel that
+centers and scrolls the artwork. Use `void-svg--bare` for a borderless,
+transparent container when you don't want the glass panel look.
+
+```html
+<div class="void-svg">
+  <svg viewBox="0 0 120 60">
+    <!-- your SVG markup -->
+  </svg>
+</div>
+```
+
+## Live preview / screenshot
+
+### Image lightbox
+
+- Images inside a `<a>` (e.g. linked thumbnails) are deliberately left alone.
+- The overlay respects `prefers-reduced-motion` and locks body scroll while open.
+
+### Figure with caption
+
+<figure class="void-figure">
+  <img src="https://raw.githubusercontent.com/rkriad585/mkdocs-void/main/docs/assets/images/logo.svg" alt="Void logo" width="96">
+  <figcaption>Figure 1 — The Void logo</figcaption>
+</figure>
+
+### Inline SVG component
 
 <div class="void-svg">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60" width="100%" height="100%">
@@ -81,17 +108,7 @@ Wrap raw SVG in a `.void-svg` container to get a bordered glass panel that cente
 </svg>
 </div>
 
-```html
-<div class="void-svg">
-  <svg viewBox="0 0 120 60">
-    <!-- your SVG markup -->
-  </svg>
-</div>
-```
-
-Use `void-svg--bare` for a borderless, transparent container when you don't want the glass panel look.
-
-## Dividers & badges
+### Dividers & badges
 
 A decorative divider component:
 
@@ -117,3 +134,19 @@ Status badges:
 ```html
 <span class="void-badge void-badge--success">Success</span>
 ```
+
+## Under the hood
+
+- Default images get `--void-glass-border` rounding plus a `border-radius`
+  from the radius tokens; `width`/`height` attributes pass through intact.
+- `.void-img-round`, `.void-img-ghost`, `.void-image--banner`,
+  `.void-image--thumbnail` are defined in `components.scss`.
+- `.void-svg` and `.void-divider` are simple glass panels; badges are
+  `.void-badge` with `--success` / `--warning` / `--error` / `--accent` states.
+
+## Accessibility notes
+
+- Keep meaningful `alt` text on every image; decorative SVGs should carry
+  `aria-hidden="true"` and `role="img"` only when they convey content.
+- The lightbox is keyboard-operable (Esc closes, arrows navigate), locks
+  background scroll, and honors `prefers-reduced-motion`.

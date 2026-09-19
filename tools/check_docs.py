@@ -69,8 +69,31 @@ CONFIG_KEY = re.compile(
     r"|extra\.void_[A-Za-z0-9_]+)"
 )
 H1 = re.compile(r"^#\s+\S.+$", re.M)
+H2 = re.compile(r"^##\s+(.+?)\s*$", re.M)
 TODO = re.compile(r"\bTODO\b|\bFIXME\b", re.I)
 SHOT_REF = re.compile(r"Screenshots/([\w.\-]+\.png)")
+TOKEN_DEF = re.compile(r"--void-([a-z0-9-]+):\s*([^;]+);", re.S)
+VAR_USE = re.compile(r"var\(--void-([a-z0-9-]+)")
+DOC_TOKEN = re.compile(r"--void-([a-z0-9-]+):\s*([^;\n]+);")
+
+COMPONENT_TEMPLATE = [
+    "what it is",
+    "when to use it",
+    "in markdown",
+    "configuration",
+    "live preview",
+    "under the hood",
+    "accessibility notes",
+]
+
+_OVERRIDE_CONTEXT_TERMS = (
+    "override",
+    "overriding",
+    "custom.css",
+    "re-brand",
+    "rebrand",
+    "your brand",
+)
 
 # -- helpers ---------------------------------------------------------------
 
@@ -170,6 +193,9 @@ def _config_surface():
         extra_keys.update(
             re.findall(r"extra\.void_(\w+)", tmpl.read_text(encoding="utf-8"))
         )
+        top_level.update(
+            re.findall(r"_vis_cfg\.(\w+)", tmpl.read_text(encoding="utf-8"))
+        )
     return token_groups, top_level, extra_keys
 
 
@@ -268,6 +294,86 @@ def check_nav() -> list[str]:
     return bad
 
 
+def check_component_template() -> list[str]:
+    """Phase 4: every docs/components/*.md follows the fixed 7-section template."""
+    bad = []
+    for page in (DOCS / "components").glob("*.md"):
+        headings = [
+            h.strip().lower() for h in H2.findall(page.read_text(encoding="utf-8"))
+        ]
+        for slot, required in enumerate(COMPONENT_TEMPLATE):
+            if slot == 4:  # "Live preview / screenshot" accepts either form
+                if not any(
+                    h.startswith(required) or " / screenshot" in h for h in headings
+                ):
+                    bad.append(
+                        f"{page.relative_to(ROOT)}: missing template section"
+                        f" '{COMPONENT_TEMPLATE[slot]} / screenshot'"
+                    )
+            elif required not in headings:
+                bad.append(
+                    f"{page.relative_to(ROOT)}: missing template section"
+                    f" '{COMPONENT_TEMPLATE[slot]}'"
+                )
+    return bad
+
+
+def _scss_tokens() -> tuple[dict[str, set[str]], set[str]]:
+    """Return (token -> declared values, referenced-token names) from the SCSS sources."""
+    values: dict[str, set[str]] = {}
+    names: set[str] = set()
+    for scss in (THEME_DIR / "templates" / "assets" / "stylesheets").glob("*.scss"):
+        text = scss.read_text(encoding="utf-8")
+        for name, value in TOKEN_DEF.findall(text):
+            values.setdefault(name, set()).add(_normalize_css(value))
+            names.add(name)
+        names.update(VAR_USE.findall(text))
+    return values, names
+
+
+def _normalize_css(value: str) -> str:
+    return re.sub(r"\s+", " ", value.replace("\n", " ")).strip().rstrip(";")
+
+
+def check_design_tokens() -> list[str]:
+    """Phase 4: design-doc token literals must match SCSS-declared token values."""
+    scss_values, scss_names = _scss_tokens()
+    bad = []
+    for page in (DOCS / "design").glob("*.md"):
+        text = page.read_text(encoding="utf-8")
+        for m in DOC_TOKEN.finditer(text):
+            name, value = m.group(1), m.group(2)
+            norm = _normalize_css(value)
+            if name not in scss_names:
+                bad.append(
+                    f"{page.relative_to(ROOT)}: --void-{name} not defined in"
+                    " templates/stylesheets"
+                )
+                continue
+            if name not in scss_values:
+                continue  # only spot-check literals declared as tokens in SCSS
+            if norm not in scss_values[name]:
+                if _is_override_context(text, m.start()):
+                    continue
+                bad.append(
+                    f"{page.relative_to(ROOT)}: --void-{name}: {norm}; differs from"
+                    f" SCSS ({' or '.join(sorted(scss_values[name]))})"
+                )
+        for m in VAR_USE.finditer(text):
+            name = m.group(1) if isinstance(m, re.Match) else m
+            if name not in scss_names:
+                bad.append(
+                    f"{page.relative_to(ROOT)}: references --void-{name} not"
+                    " defined in templates/stylesheets"
+                )
+    return bad
+
+
+def _is_override_context(text: str, pos: int) -> bool:
+    window = text[max(0, pos - 200) : pos].lower()
+    return any(term in window for term in _OVERRIDE_CONTEXT_TERMS)
+
+
 def main() -> int:
     checks = [
         ("PLAN-file links (Rule 11)", check_plan_links),
@@ -276,6 +382,8 @@ def main() -> int:
         ("config keys used in docs", check_config_keys),
         ("one H1 + no TODO/FIXME", check_h1_and_todos),
         ("docs <-> nav reconciliation", check_nav),
+        ("component 7-section template", check_component_template),
+        ("design tokens match SCSS", check_design_tokens),
     ]
     failures: list[str] = []
     for label, fn in checks:

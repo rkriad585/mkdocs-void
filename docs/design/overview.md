@@ -44,6 +44,131 @@ Three intensity levels give you control over how much the glass "reads":
 
 See [Glass Effects](glass.md) for implementation details and CSS examples.
 
+## Dot matrix
+
+The NothingOS dot texture is a fixed, non-intrusive overlay drawn with two CSS
+radial gradients, positioned behind every surface:
+
+```css
+:root {
+  --void-dot-size: 2px;
+  --void-dot-gap: 6px;
+  --void-dot-opacity: 0.03;
+  --void-dot-color: var(--void-text-primary);
+}
+```
+
+Configure it from `theme.void.dot_matrix` (`enabled`, `size`, `gap`, `color`,
+`opacity`, `position`). The default `enabled: true` ships the overlay in dark
+mode and a lighter `0.02` opacity in light mode.
+
+## Borders
+
+A subtle 1px border is the standard surface edge — no heavy outlines:
+
+```css
+:root {
+  --void-border-width: 1px;
+  --void-border-style: solid;
+  --void-glass-border: rgba(255, 255, 255, 0.18);
+}
+```
+
+Adjusted with `theme.void.border` (`width: none|thin|thick`, `style:
+solid|dashed|dotted`, `color`).
+
+## Animations
+
+Motion is token-driven and honors the OS:
+
+```css
+:root {
+  --void-transition-duration: 250ms;
+  --void-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --void-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --void-transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --void-transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+```
+
+- The `animation` token (`normal | reduced | none`) gates page transitions,
+  hover effects, scroll progressives, and toast slide-ins.
+- `prefers-reduced-motion: reduce` disables animation automatically for users
+  who ask for it.
+
+## Shadows
+
+Shadows are a secondary depth cue — glass blur does the primary work:
+
+```css
+:root {
+  --void-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --void-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --void-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --void-shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+```
+
+See [Colors](colors.md) for the same table with usage notes.
+
+## Spacing
+
+A 4px base scale keeps rhythm predictable:
+
+```css
+:root {
+  --void-space-1: 4px;
+  --void-space-2: 8px;
+  --void-space-3: 12px;
+  --void-space-4: 16px;
+  --void-space-5: 20px;
+  --void-space-6: 24px;
+  --void-space-8: 32px;
+  --void-space-10: 40px;
+  --void-space-12: 48px;
+  --void-space-16: 64px;
+}
+```
+
+Layout slots are tokens too: `--void-sidebar-width: 280px`,
+`--void-toc-width: 240px`, `--void-header-height: 56px`,
+`--void-content-max-width: 900px`, and `--void-section-gap: 40px` — all
+configurable via `theme.void.spacing`.
+
+## Radius
+
+Precision rounding on the NothingOS scale:
+
+```css
+:root {
+  --void-radius-sm: 4px;
+  --void-radius-md: 8px;
+  --void-radius-lg: 12px;
+  --void-radius-xl: 16px;
+  --void-radius-pill: 999px;
+}
+```
+
+## Scrollbar
+
+Native scrollbars are themed thin and quiet:
+
+```css
+:root {
+  --void-scrollbar-thumb: var(--void-glass-border);
+}
+```
+
+`theme.void.scrollbar` (`style: default|subtle|none`, `show`, `color`) controls
+the appearance; setting `show: false` hides the native scrollbar.
+
+## Selection
+
+Text selection is a tokenized accent so even the "invisible" chrome matches the
+brand — `theme.void.selection` (`background`, `color`) overrides the defaults.
+This is styled via the standard `::selection` pseudo-class with the accent color.
+
 ## Components
 
 The theme provides styled versions of common MkDocs components:

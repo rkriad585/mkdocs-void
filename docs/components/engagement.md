@@ -5,6 +5,8 @@ title: Feedback & Announcements
 
 # Feedback & Privacy Features
 
+## What it is
+
 Three engagement surfaces and one privacy rule round out a Void site — all of them opt-in, none of them ship tracking:
 
 - The **feedback widget** asks "Was this page helpful?" and opens a prefilled GitHub issue (positive or negative) in a new tab.
@@ -14,19 +16,21 @@ Three engagement surfaces and one privacy rule round out a Void site — all of 
   (`theme.analytics.gtag` or giscus comments), never otherwise — but you can
   force it on with `render: always` (as this docs site does).
 
-## Feedback widget
+## When to use it
 
-The widget renders under the article once the page has a `repo_url` (real GitHub repos only — the click is a plain issue link, no analytics anywhere).
+Use feedback to close the loop on documentation quality, the announcement bar
+to broadcast changes that readers shouldn't miss, and consent whenever you
+embed any third-party integration. Keep every surface optional; a quiet site
+with none of them is fully supported.
 
-<div>
-  <div class="void-feedback">
-    <div class="void-feedback__title">Was this page helpful?</div>
-    <div class="void-feedback__actions">
-      <button type="button" class="void-btn void-feedback__btn void-feedback__btn--yes">Yes — thanks!</button>
-      <button type="button" class="void-btn void-btn--accent void-feedback__btn void-feedback__btn--no">No — open an issue</button>
-    </div>
-  </div>
-</div>
+## In Markdown
+
+None of these surfaces appear in Markdown — they are page furniture driven by
+`mkdocs.yml`, rendered by the theme's templates around the article.
+
+## Configuration
+
+### Feedback widget
 
 ```yaml
 theme:
@@ -41,11 +45,7 @@ theme:
         - feedback         # Issue labels applied to every opened issue
 ```
 
-Clicking **Yes** opens `repo/issues/new` with a `Positive feedback` body; clicking **No** opens the same with a `Negative feedback` body. The page title and URL are pre-filled so readers never have to type anything. On "Yes" a success toast is shown.
-
-## Announcement bar
-
-The bar is fixed to the bottom of the viewport. Set the text either on `announcement_bar.text` or with the legacy `extra.void_announce` string (the dict wins).
+### Announcement bar
 
 ```yaml
 extra:
@@ -60,11 +60,7 @@ theme:
       dismissable: true    # Show the × button
 ```
 
-Dismissal is stored per site under a key derived from the announcement text, so updating the announcement re-shows it. The bar is fixed to the bottom of the viewport, above the consent banner, and never covers content.
-
-## Cookie consent banner
-
-Void stores **nothing** about readers beyond explicit opt-in flags (`consent`, `announcement-dismissed-*`, notes). The banner is purely a courtesy: it renders only when the build detects a configured integration, and clicking **Accept** unlocks delayed integrations (e.g. giscus) that are otherwise never loaded.
+### Cookie consent banner
 
 ```yaml
 theme:
@@ -79,16 +75,48 @@ theme:
       privacy_policy: ""        # Optional link label; e.g. "/privacy/"
 ```
 
+## Live preview / screenshot
+
+### Feedback widget
+
+The widget renders under the article once the page has a `repo_url` (real GitHub repos only — the click is a plain issue link, no analytics anywhere).
+
+<div>
+  <div class="void-feedback">
+    <div class="void-feedback__title">Was this page helpful?</div>
+    <div class="void-feedback__actions">
+      <button type="button" class="void-btn void-feedback__btn void-feedback__btn--yes">Yes — thanks!</button>
+      <button type="button" class="void-btn void-btn--accent void-feedback__btn void-feedback__btn--no">No — open an issue</button>
+    </div>
+  </div>
+</div>
+
+Clicking **Yes** opens `repo/issues/new` with a `Positive feedback` body; clicking **No** opens the same with a `Negative feedback` body. The page title and URL are pre-filled so readers never have to type anything. On "Yes" a success toast is shown.
+
+### Announcement bar
+
+The bar is fixed to the bottom of the viewport. Set the text either on `announcement_bar.text` or with the legacy `extra.void_announce` string (the dict wins).
+
+Dismissal is stored per site under a key derived from the announcement text, so updating the announcement re-shows it. The bar is fixed to the bottom of the viewport, above the consent banner, and never covers content.
+
+### Cookie consent banner
+
+Void stores **nothing** about readers beyond explicit opt-in flags (`consent`, `announcement-dismissed-*`, notes). The banner is purely a courtesy: it renders only when the build detects a configured integration, and clicking **Accept** unlocks delayed integrations (e.g. giscus) that are otherwise never loaded.
+
 A browser's choice is remembered; changing it requires clearing site data. The banner is fixed at the bottom center and styled with the theme's glass tokens.
 
-## Opt-in comments (giscus)
+## Under the hood
 
-Comments are a separate, fully opt-in integration. See [Plugins → Void Plugin](../plugins/void.md) for the full giscus setup. Highlights:
+- Feedback buttons are `.void-feedback__btn` variants of `.void-btn`; the click
+  handler builds the prefilled `issues/new` URL from `repo_url`.
+- The announcement bar, feedback widget, and consent banner are all rendered by
+  `base.html` partials and dressed with the glass tokens.
+- Comments are a separate, fully opt-in integration. See [Plugins → Void Plugin](../plugins/void.md) for the full giscus setup. Highlights:
 
-- Only the `giscus` provider is supported today.
-- Nothing is loaded until both `repo` and `repo_id` are configured.
-- When a cookie-consent-serving integration is present, the giscus script is deferred until the reader clicks **Accept**. No third-party request happens before that.
-- The giscus theme follows the active palette (`light` / `dark` under `theme.void.comments.theme`) and re-syncs when the scheme changes.
+  - Only the `giscus` provider is supported today.
+  - Nothing is loaded until both `repo` and `repo_id` are configured.
+  - When a cookie-consent-serving integration is present, the giscus script is deferred until the reader clicks **Accept**. No third-party request happens before that.
+  - The giscus theme follows the active palette (`light` / `dark` under `theme.void.comments.theme`) and re-syncs when the scheme changes.
 
 ```yaml
 theme:
@@ -106,7 +134,16 @@ theme:
         dark: dark
 ```
 
-## Privacy summary
+## Accessibility notes
+
+- The announcement bar is a single focusable line with a dismiss button; it
+  scrolls into view with the rest of the page and never traps focus.
+- The consent banner's Accept/Decline are real buttons with readable labels and
+  a visible focus ring.
+- Feedback opens a new tab via a plain, announced link target; keep the link
+  text descriptive ("Yes — thanks!" / "No — open an issue").
+
+### Privacy summary
 
 | Surface | Stores | Loads third parties |
 |---------|--------|---------------------|

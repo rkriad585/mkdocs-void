@@ -72,6 +72,27 @@ Strong frosted effect with pronounced separation. Use for modals, floating panel
 | Medium  | 20px    | 1.2        | 8%                 | Medium      |
 | Heavy   | 30px    | 1.4        | 12%                | High        |
 
+## Browser support
+
+`backdrop-filter` and `-webkit-backdrop-filter` drive the frosted effect. Support
+is broadly modern:
+
+| Engine   | Browsers | `backdrop-filter` |
+|----------|----------|-------------------|
+| Chromium | Chrome, Edge, Opera, newer Android | ✅ |
+| Gecko    | Firefox 103+                      | ✅ (earlier = no blur) |
+| WebKit   | Safari 9+, iOS Safari             | ✅ via `-webkit-` prefix |
+
+When `backdrop-filter` is unavailable the glass degrades to a flat
+semi-transparent fill — the layout, contrast, and hierarchy survive unchanged.
+The theme ships both prefixed and unprefixed properties (`-webkit-backdrop-filter`
+and `backdrop-filter`) so fallback is automatic in every engine.
+
+!!! note
+    `backdrop-filter` in Firefox 102 and below renders as a fully opaque panel.
+    Because the glass background still carries the semi-transparent token, the
+    observable difference is a slightly heavier fill — never a broken layout.
+
 ## Hover state
 
 Glass surfaces gain a slight brightness boost on hover:

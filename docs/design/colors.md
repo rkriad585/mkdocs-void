@@ -22,7 +22,7 @@ The page background. Pure black — NothingOS signature.
 ```css
 --void-text-primary: #ffffff;
 --void-text-secondary: rgba(255, 255, 255, 0.7);
---void-text-muted: #555555;
+--void-text-muted: #888888;
 --void-text-accent: #ff3030;
 ```
 
@@ -43,6 +43,8 @@ The primary interactive color — Nothing Red.
 --void-accent: #ff3030;
 --void-accent-dim: rgba(255, 48, 48, 0.15);
 --void-accent-glow: rgba(255, 48, 48, 0.3);
+--void-accent-strong: #c62828;
+--void-accent-strong-hover: #b71c1c;
 ```
 
 ### Glass
@@ -65,6 +67,41 @@ Void uses a single accent color — **Nothing Red** (`#ff3030`). It is used spar
 | `--void-accent` | `#ff3030` | Primary accent |
 | `--void-accent-dim` | `rgba(255, 48, 48, 0.15)` | Faint accent backgrounds |
 | `--void-accent-glow` | `rgba(255, 48, 48, 0.3)` | Glow effects |
+| `--void-accent-strong` | `#c62828` | Solid fills/buttons (passes WCAG AA with white text) |
+| `--void-accent-strong-hover` | `#b71c1c` | Strong-accent hover/active |
+
+## Full token table
+
+Every default token in dark mode, exactly as compiled from `void/templates/assets/stylesheets/void.scss`:
+
+| Token | Dark default |
+|-------|--------------|
+| `--void-ink` | `#000000` |
+| `--void-ghost` | `rgba(255, 255, 255, 0.06)` |
+| `--void-ghost-strong` | `rgba(255, 255, 255, 0.12)` |
+| `--void-text-primary` | `#ffffff` |
+| `--void-text-secondary` | `rgba(255, 255, 255, 0.7)` |
+| `--void-text-muted` | `#888888` |
+| `--void-text-accent` | `#ff3030` |
+| `--void-accent` | `#ff3030` |
+| `--void-accent-dim` | `rgba(255, 48, 48, 0.15)` |
+| `--void-accent-glow` | `rgba(255, 48, 48, 0.3)` |
+| `--void-accent-strong` | `#c62828` |
+| `--void-accent-strong-hover` | `#b71c1c` |
+| `--void-glass-bg` | `rgba(255, 255, 255, 0.08)` |
+| `--void-glass-bg-strong` | `rgba(255, 255, 255, 0.15)` |
+| `--void-glass-border` | `rgba(255, 255, 255, 0.18)` |
+| `--void-glass-border-strong` | `rgba(255, 255, 255, 0.35)` |
+
+## Contrast rules
+
+Void keeps every text/token pairing readable with these rules:
+
+- **Body text on canvas** — `#ffffff` primary / `rgba(255, 255, 255, 0.7)` secondary on `#000000` comfortably exceeds WCAG AA (4.5:1) for normal text. `rgba(255, 255, 255, 0.7)` is intended for large text, labels, and secondary chrome, not long reading.
+- **Nothing Red on black** — `#ff3030` on `#000000` exceeds 4.5:1 and is safe for links and interactive accents.
+- **Accent-strong with white text** — `#c62828` is the solid-fill accent chosen to pass WCAG AA (4.5:1) with white labels; `#b71c1c` deepens it for hover/active.
+- **Muted text** — `--void-text-muted: #888888` is decoration-only (captions, timestamps, metadata). Do not use it for required content.
+- **Light mode** — the light palette swaps the same roles (`#000000` primary on `#ffffff`), preserving parity.
 
 ## Shadows
 
@@ -105,7 +142,7 @@ When the palette scheme is set to `"default"`, the token values flip to their li
   --void-ink: #ffffff;
   --void-text-primary: #000000;
   --void-text-secondary: rgba(0, 0, 0, 0.7);
-  --void-text-muted: #aaaaaa;
+  --void-text-muted: #767676;
   --void-ghost: rgba(0, 0, 0, 0.04);
   --void-ghost-strong: rgba(0, 0, 0, 0.08);
   --void-glass-bg: rgba(0, 0, 0, 0.05);

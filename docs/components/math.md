@@ -5,38 +5,64 @@ title: Math
 
 # Math (KaTeX)
 
+## What it is
+
 Void renders mathematical notation with **KaTeX**, loaded lazily from a CDN only when a page contains math. It integrates with `pymdownx.arithmatex`, which is enabled in the theme's `mkdocs.yml`.
 
-!!! note
-    Math is enabled by default. To disable it entirely set
-    `extra.void_math: false` in `mkdocs.yml`; to only hide the loader for a
-    single component category use `theme.void.components.math.show: false`.
+## When to use it
 
-## Inline math
+Use math for formulas, equations, and notation on pages where they're the
+content — API docs, algorithms, scientific prose. On prose-heavy pages, inline
+math ($x^2$) keeps notation compact; block math is for equations worth standing
+on their own line.
+
+## In Markdown
 
 Use single dollar signs for inline math:
 
-The quadratic formula **$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$** solves $ax^2 + bx + c = 0$.
-
 ```markdown
 The quadratic formula **$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$** solves $ax^2 + bx + c = 0$.
 ```
 
-## Block math
+The quadratic formula **$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$** solves $ax^2 + bx + c = 0$.
 
 Use double dollar signs (or a `$$ ... $$` block) for display math:
 
-$$
-\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}
-$$
-
 ```markdown
 $$
 \int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}
 $$
 ```
 
-## Aligned equations
+$$
+\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}
+$$
+
+## Configuration
+
+Math is enabled by default. To disable it entirely set `extra.void_math: false`
+in `mkdocs.yml`; to only hide the loader for a single component category use
+`theme.void.components.math.show: false`:
+
+```yaml
+# mkdocs.yml — disable math globally
+extra:
+  void_math: false
+```
+
+```yaml
+theme:
+  void:
+    components:
+      math:
+        show: true        # default true
+        cdn_url: ""       # empty = theme default
+        cdn_css_url: ""
+```
+
+## Live preview / screenshot
+
+### Aligned equations
 
 $$
 \begin{aligned}
@@ -45,7 +71,7 @@ F &= ma
 \end{aligned}
 $$
 
-## Matrices
+### Matrices
 
 $$
 \begin{pmatrix}
@@ -64,14 +90,15 @@ cx + dy
 \end{pmatrix}
 $$
 
-## Configuration
+## Under the hood
 
-Math is loaded only when a `.arithmatex` element exists on the page, so pages without math never fetch KaTeX.
+- Math is loaded only when a `.arithmatex` element exists on the page, so pages
+  without math never fetch KaTeX.
+- The KaTeX resources are pinned to `katex@0.16.9` (CSS + JS) from `jsdelivr`.
 
-```yaml
-# mkdocs.yml — disable math globally
-extra:
-  void_math: false
-```
+## Accessibility notes
 
-The KaTeX resources are pinned to `katex@0.16.9` (CSS + JS) from `jsdelivr`.
+- KaTeX renders math as text-plus-CSS where possible, keeping content
+  selectable and screen-reader accessible; add an aria-label for complex
+  expressions when it aids comprehension.
+- Avoid math as the only carrier of a result — restate the implication in prose.
