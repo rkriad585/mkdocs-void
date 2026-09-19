@@ -61,6 +61,29 @@ Opens a live-reloading dev server at [http://127.0.0.1:8000](http://127.0.0.1:80
 ruff check void/
 ```
 
+## Health check
+
+```bash
+void doctor
+```
+
+Audits your project and prints a health report:
+
+| Check | What it verifies |
+|-------|-----------------|
+| `site_url` | Set in `mkdocs.yml` (warns if empty) |
+| `theme.name` | Equals `void` |
+| `plugins` | Includes the `void` plugin |
+| `node` | Available for CSS builds |
+| `sw.js` | Cache versions match the theme |
+| `extra.void_version` | Set for asset cache-busting |
+
+Exit codes: `0` = healthy, `1` = problems found, `2` = usage/YAML error.
+
+```bash
+void doctor --config-file path/to/mkdocs.yml
+```
+
 ## Project Layout
 
 | Path | Description |

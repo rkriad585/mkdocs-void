@@ -3201,11 +3201,13 @@
   // Apply the remembered collapse state to the current nav tree.
   function applyNavMemory() {
     const s = sessionGet()
-    const collapsed = s.navCollapsed || []
+    const collapsed = s.navCollapsed
+    // First visit (no session): collapse all sections by default.
+    const defaultCollapsed = !collapsed
     $$(".void-nav__toggle").forEach((btn) => {
       const id = btn.getAttribute("aria-controls")
       if (!id) return
-      const isCollapsed = collapsed.indexOf(id) !== -1
+      const isCollapsed = defaultCollapsed || collapsed.indexOf(id) !== -1
       btn.setAttribute("aria-expanded", String(!isCollapsed))
       btn.classList.toggle("void-nav__toggle--open", !isCollapsed)
       const target = document.getElementById(id)
