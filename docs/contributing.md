@@ -103,7 +103,7 @@ The commit prefix drives the [auto-generated changelog](https://github.com/rkria
 ## Documentation PRs
 
 - Screenshots are required for any visual change (use `tools/screenshots_gen.py`).
-- Never link or embed any PLAN file (`PLAN.md`, `WHY_PLAN.md`, `RENAME-PLAN.md`, `DOCS_WIKI_PLAN.md`) from docs.
+- Never link or embed any planning artifact from docs.
 - Run `tools/check_docs.py` before committing — it catches broken links, missing H1s, stale config keys, and template violations.
 
 ## Reporting issues

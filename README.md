@@ -482,8 +482,7 @@ mkdocs serve
 ### Docs Health
 
 - The documentation (`docs/**`) and every README in this repository **never
-  link to, embed, or depend on planning artifacts** (`PLAN.md`, `WHY_PLAN.md`,
-  `DOCS_WIKI_PLAN.md`). They stand on their own and link only user-facing pages.
+  link to, embed, or depend on planning artifacts**. They stand on their own and link only user-facing pages.
 - The config reference is generated, not hand-written:
   `python tools/emit_config_reference.py` →
   `docs/_config_ref.generated.md` (snippets-included into the Configuration page).

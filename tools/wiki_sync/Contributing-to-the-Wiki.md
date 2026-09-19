@@ -30,8 +30,7 @@ Wiki pages are seeded from `tools/wiki_sync/`. To update them:
 
 ## Rules
 
-- **No PLAN files.** Never link or reference `PLAN.md`, `WHY_PLAN.md`,
-  `RENAME-PLAN.md`, or `DOCS_WIKI_PLAN.md`.
+- **No planning artifacts.** Never link or reference planning files.
 - **Link back.** Every wiki page should link to the canonical docs for
   detailed information.
 - **Keep it current.** The wiki is auto-synced on release — if you edit

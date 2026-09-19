@@ -134,7 +134,7 @@ The Worker shim in the test harness fires results when `msg.query` is sent. The 
 
 | # | Check | What it catches |
 |---|-------|-----------------|
-| 1 | PLAN-file links | Docs linking to `PLAN.md`, `WHY_PLAN.md`, etc. |
+| 1 | PLAN-file links | Docs linking to any planning artifact |
 | 2 | Intra-doc links | Broken relative links between doc pages |
 | 3 | Screenshot contract | Pages in `docs/components/` must have matching screenshots |
 | 4 | Config keys | YAML keys used in docs must exist in the plugin's token map |

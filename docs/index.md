@@ -306,5 +306,5 @@ print(f"Void {__version__} — glass, nothing, red.")
 [Report an Issue](https://github.com/rkriad585/mkdocs-void/issues)
 
 > **Docs policy:** the documentation and READMEs never link to, embed, or depend
-> on planning artifacts (`PLAN.md`, `WHY_PLAN.md`, `DOCS_WIKI_PLAN.md`) — this
+> on planning artifacts — this
 > page stands on its own.
