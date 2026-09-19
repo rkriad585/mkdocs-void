@@ -952,6 +952,22 @@ nav:
   - Plugins:
     - Void Plugin: plugins/void.md
     - Third-Party Integrations: plugins/integrations.md
+  - Features & Behavior:
+    - Overview: features/index.md
+    - Search: features/search.md
+    - SPA Navigation & Scroll Restore: features/spa-navigation.md
+    - Reading Mode: features/reading-mode.md
+    - Action Cluster: features/action-cluster.md
+    - Focus Timer: features/focus-timer.md
+    - Notes Panel: features/notes-panel.md
+    - Keyboard Reference: features/keyboard.md
+    - Reading Progress: features/reading-progress.md
+    - Back to Top: features/back-to-top.md
+    - TOC Scrollspy: features/toc-scrollspy.md
+    - Service Worker & Caching: features/service-worker.md
+    - PWA Manifest: features/pwa.md
+    - Persistence: features/persistence.md
+    - Repo Popover: features/repo-popover.md
   - Architecture: architecture.md
   - Performance: performance.md
   - Benchmarks: benchmarks.md
