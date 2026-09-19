@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 <!-- AUTO-CHANGELOG:end -->
 
 
+## [0.3.0] - 2026-09-19
+
+<!-- AUTO-CHANGELOG:start -->
+### Commits since the last release (auto)
+- no commits since the last release
+<!-- AUTO-CHANGELOG:end -->
 ## [0.2.2] - 2026-09-17
 
 ### Changed
