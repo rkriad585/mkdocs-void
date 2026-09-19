@@ -8,7 +8,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 <!-- AUTO-CHANGELOG:start -->
 ### Commits since the last release (auto)
-- no commits since the last release
+- [Added] feat(cli): void new scaffold + void doctor command
+- [Fixed] fix: nav sections collapsed by default + document void doctor
+- [Changed] chore: add keywords kirn rk-riad-khan peekstore
+- [Changed] chore: bump version to 0.3.0
+- [Changed] chore: remove planning artifacts + clean up references
+- [Changed] ci: add PR gate workflow with npm test + doc health checks
+- [Changed] docs(phase8): ai-readable mode, pwa deep-dive, translating guide
+- [Changed] docs(phase6+7): developer docs, learning curve, and wiki sync
+- [Changed] docs(phase5): features & behavior index with degradation table
+- [Changed] docs(phase4): design-system + components deep-dive, 7-section template
+- [Changed] docs: onboarding + configuration bible with toggle screenshots
+- [Changed] docs(phase1): doc health tool + CI wiring, fix dead-config claims
+- [Changed] docs: rewrite DOCS_WIKI_PLAN for mkdocs-void state, deep index design+feature breakdown, README feature matrix
+- [Changed] chore: regenerate screenshots
+- [Changed] chore: release changelog for v0.2.2 [skip ci]
 <!-- AUTO-CHANGELOG:end -->
 
 
