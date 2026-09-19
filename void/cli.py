@@ -21,7 +21,10 @@
 """Void command-line interface.
 
 `void new [TARGET]` creates a working Void docs project (mkdocs.yml +
-docs/index.md) with zero custom CSS, ready for `mkdocs serve`.
+docs/index.md) from the full commented project template — theme, palette,
+plugin, markdown extensions and every tuning surface — ready for
+`mkdocs serve`. Placeholders in the template are filled from the target
+name and the repository detected in the current directory.
 
 `void doctor [--config-file FILE]` audits the current project and prints a
 health report: mkdocs + void versions, `site_url`, theme, fonts, node, and
@@ -39,30 +42,11 @@ from pathlib import Path
 
 from . import __version__ as _VOID_CLI_VERSION
 
-TEMPLATE = {
-    "mkdocs.yml": (
-        "site_name: New Docs\n"
-        'site_url: ""\n'
-        "theme:\n"
-        "  name: void\n"
-        "  features:\n"
-        "    - navigation.sections\n"
-        "    - navigation.top\n"
-        "    - navigation.footer\n"
-        "    - content.code.copy\n"
-        "    - search.suggest\n"
-        "    - search.highlight\n"
-        "  void:\n"
-        "    glass: medium\n"
-        "    dot_matrix: true\n"
-        "    animation: normal\n"
-        "    border: thin\n"
-        "plugins:\n"
-        "  - search\n"
-        "  - void\n"
-    ),
-    "docs/index.md": "# Welcome\n\nBuilt with Void.\n",
-}
+NEW_PROJECT_TEMPLATE = (
+    Path(__file__).resolve().parent / "templates" / "project" / "mkdocs.yml"
+)
+
+INDEX_TEMPLATE = "# Welcome\n\nBuilt with Void.\n"
 
 USAGE = "usage: void new [TARGET] | doctor [--config-file FILE]"
 DOCTOR_USAGE = "usage: void doctor [--config-file FILE]  (default: mkdocs.yml in the current directory)"
@@ -86,6 +70,28 @@ def main(argv=None) -> int:
     return 2
 
 
+def _slug(name: str) -> str:
+    """Turn a project name into a repo-friendly slug (e.g. \"My Docs\" -> my-docs)."""
+    slug = re.sub(r"[^a-zA-Z0-9]+", "-", name).strip("-").lower()
+    return slug or "my-docs"
+
+
+def _repo_username() -> str:
+    """Best-effort GitHub owner for the repo_url placeholder."""
+    try:
+        origin = subprocess.run(
+            ["git", "remote", "get-url", "origin"],
+            capture_output=True,
+            text=True,
+            timeout=10,
+            check=False,
+        ).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return "your-username"
+    match = re.search(r"[:/]([^/:]+)/[^/:]+(?:\.git)?$", origin)
+    return match.group(1) if match else "your-username"
+
+
 def _cmd_new(argv) -> int:
     target = Path(argv[0]) if argv else Path(".")
     if (target / "mkdocs.yml").exists():
@@ -94,10 +100,20 @@ def _cmd_new(argv) -> int:
             file=sys.stderr,
         )
         return 1
-    for name, body in TEMPLATE.items():
+    slug = _slug(target.name) if argv else "my-docs"
+
+    body = NEW_PROJECT_TEMPLATE.read_text(encoding="utf-8")
+    body = body.replace("{REPO_USERNAME}", _repo_username())
+    body = body.replace("{PROJECTS_NAME}", slug)
+    files = {
+        "mkdocs.yml": body,
+        "docs/index.md": INDEX_TEMPLATE,
+    }
+
+    for name, content in files.items():
         p = target / name
         p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(body, encoding="utf-8")
+        p.write_text(content, encoding="utf-8")
     print(f"Void project scaffolded at {target}. Run: mkdocs serve")
     return 0
 

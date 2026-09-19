@@ -1,0 +1,905 @@
+site_name: Void Documentation
+site_description: Glass + NothingOS Design Language for MkDocs
+
+# The deployed URL. Void uses it as the production origin so links that are
+# baked/hardcoded with this address are automatically rebased to localhost:{port}
+# when you preview with `mkdocs serve`.
+site_url: https://example.com
+
+repo_url: "https://github.com/{REPO_USERNAME}/{PROJECTS_NAME}"
+repo_name: "{REPO_USERNAME}/{PROJECTS_NAME}"
+
+copyright: "&copy; 2025 rkriad585. Built with Void."
+
+theme:
+  name: void
+  logo: https://raw.githubusercontent.com/rkriad585/mkdocs-void/main/docs/assets/images/logo.svg
+  favicon: https://raw.githubusercontent.com/rkriad585/mkdocs-void/main/docs/assets/images/favicon.svg
+  language: en
+  direction: ltr
+  palette:
+    - scheme: slate
+      primary: black
+      accent: red
+      toggle:
+        name: Switch to light mode
+    - scheme: default
+      primary: white
+      accent: red
+      toggle:
+        name: Switch to dark mode
+ #Theme.font (optional) ----------------------------------
+  # Drives the Google Fonts <link> AND the --void-font-body / --void-font-mono
+  # tokens, so the body/code stacks update automatically. Overrides any matching
+  # theme.void.typography value; defaults are Space Grotesk / Space Mono.
+  # font:
+  #  text: Space Grotesk
+  #  code: Space Mono
+  # features: is a Material-compatible passthrough — every behavior below ships
+  # enabled by default, so the list does not gate anything. Keep it or drop it;
+  # to change a behavior use a theme.void.* switch instead.
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+  void:
+    glass: medium
+    dot_matrix: true
+    animation: normal
+    border: thin
+ #Social cards & structured data ------------------------------
+    # Per-page Article JSON-LD + auto-generated OG card images. Every key
+    # defaults ON; `cards` only fires when `extra.void_og_image` is set to the
+ #Literal value "__auto__" (see the extra block below).
+    social_cards:
+      enabled: true   # Master on/off: JSON-LD + auto card images (default true)
+      jsonld: true    # Article JSON-LD structured data in <head> (default true)
+      cards: true     # Build per-page og:image cards when og_image = __auto__ (default true)
+ #Page metadata bar -----------------------------------------
+    # "Last updated" date + "Edit this page" link under the content. The date
+    # works with mkdocs-git-revision-date-localized-plugin (page.meta.git_revision_date_localized)
+    # and falls back to `date:` front matter, or is omitted when neither exists.
+    meta:
+      enabled: true                # Master on/off (default true)
+      show_last_updated: true      # "Last updated: <date>" row (default true)
+      show_edit_on_github: true    # "Edit this page" link to the source file (default true)
+      last_updated_label: Last updated
+      edit_label: Edit this page
+      date_source: auto            # auto | front_matter | git
+ #Engagement & privacy --------------------------------------
+    # "Was this page helpful?" feedback (opens a prefilled GitHub issue — no
+    # analytics), a dismissable announcement bar, a consent banner, and opt-in
+    # giscus comments. Feedback + announcement + consent (render: always) are
+    # enabled here so the widgets are visible in the docs; comments use the
+    # real giscus IDs for this repo (GitHub Discussions was enabled for it).
+    feedback:
+      enabled: true # Master on/off (default true)
+      show: true    # Render the widget under the article (default true)
+      title: Was this page helpful?
+      positive: Yes — thanks!
+      negative: No — open an issue
+      github_labels:
+        - feedback
+    # announcement_bar — a one-line, bottom-fixed notice. Off by default: the
+    # bar renders only when `enabled: true` AND `text` is set. Setting `text`
+    # (without enabled) is not enough anymore.
+    #   * show: render the bar when enabled (default true).
+    #   * dismissable: false pins the bar and removes the × close button; the
+    #     default (true) persists dismissal per bar text in localStorage.
+    #   * position: floating placement — top | right | bottom | left | center
+    #     (default bottom). left/right pin a side card; center opens a popup
+    #     with a dimmed backdrop (click the backdrop to dismiss).
+    # announcement_bar:
+      # enabled: true  # opt-in — hidden by default; set true to show
+      # show: true     # Render the bar (default true)
+      # text: "Void is live — glass design for MkDocs"
+      # dismissable: true
+      # position: bottom # top | right | bottom | left | center
+    # The privacy-first default (`render: auto`) shows the banner only when a
+    # real integration (gtag analytics or giscus comments) is configured; this
+    # docs site forces it with `render: always` so the widget is visible. With
+    # giscus configured below the banner would also appear under `auto`.
+    cookie_consent:
+      enabled: false # Master on/off (default true)
+      show: false    # Render the banner (default true)
+      render: never  # auto (only with an integration) | always | never (default auto)
+      # position: floating placement — top | right | bottom | left | center
+      # (default bottom). left/right pin a side card; center opens a popup
+      # with a dimmed backdrop (Accept/Decline are the only way to settle it).
+      position: bottom
+      message: This site stores nothing about you unless you enable integrations.
+      accept_label: Accept
+      decline_label: Decline
+      privacy_policy: ""
+    # comments — opt-in giscus (GitHub Discussions). Hidden by default: even
+    # with repo + repo_id present, nothing renders unless `enabled: true`.
+    #   * provider: only "giscus" is supported today.
+    #   * repo / repo_id: owner/repo and the repo ID from the giscus setup page
+    #     (https://giscus.app).
+    #   * category / category_id: use an "Announcements"-type category. In that
+    #     category only maintainers (and the giscus bot) can start discussions,
+    #     so visitors can comment but never create threads. Grab the exact
+    #     category_id on the giscus setup page alongside the repo ID.
+    #   * mapping: how a page finds its thread. With `pathname` (default) each
+    #     page looks for a discussion whose TITLE equals the page pathname
+    #     without the leading slash — e.g. this home page (`/mkdocs-void/`)
+    #     maps to a discussion titled `mkdocs-void/`. Create/rename threads to
+    #     match, or let giscus create them automatically on first comment.
+    #   * term: only used with mapping: specific.
+    #   * theme.light / theme.dark: giscus themes per palette scheme.
+    #   * strict: true matches threads by title hash instead of GitHub's fuzzy
+    #     search (see giscus "strict title matching"). Default: false.
+    # comments:
+    #  enabled: true          # opt-in — hidden by default; set true to show
+    #  provider: giscus       # only supported provider
+    #  repo: "rkriad585/mkdocs-void"
+    #  repo_id: "R_kgDOT6uASQ"
+    #  category: "Announcements"            # Announcements-type category
+    #  category_id: "DIC_kwDOT6uASc4DFG1d"
+    #  mapping: pathname # pathname | url | title | og:title | specific
+    #  term: ""          # only used with mapping: specific
+    #  theme:
+    #    light: light
+    #    dark: dark
+ #Design token overrides (optional) -------------------------
+    # Uncomment any value to override the theme's default design token. Values
+    # map to CSS custom properties and win against the compiled stylesheet.
+    # colors:
+    #   primary: "#ff3030"            # --void-accent
+    #   primary_light: "#ff6b6b"      # --void-accent-glow
+    #   primary_dark: "#c62828"       # --void-accent-strong
+    #   background: "#000000"         # --void-ink
+    #   surface: "rgba(255,255,255,0.08)"   # --void-glass-bg
+    #   surface_light: "rgba(255,255,255,0.15)" # --void-glass-bg-strong
+    #   text: "#ffffff"               # --void-text-primary
+    #   text_secondary: "#aaaaaa"     # --void-text-secondary
+    #   border: "rgba(255,255,255,0.18)"    # --void-glass-border
+    #   overlay: "rgba(0,0,0,0.5)"    # --void-overlay-color
+    # typography:                     # theme.font above wins over font_family/font_family_mono
+    #   font_family: "Space Grotesk, sans-serif"
+    #   font_family_display: "Space Grotesk, sans-serif"
+    #   font_family_mono: "Space Mono, monospace"
+    #   font_size_base: "16px"
+    #   font_size_sm: "14px"
+    #   font_size_lg: "18px"
+    #   line_height: "1.7"
+    #   heading_weight: "700"
+    #   heading_letter_spacing: "-0.02em"
+    # spacing:
+    #   sidebar_width: "280px"
+    #   toc_width: "240px"
+    #   header_height: "56px"
+    #   content_max_width: "900px"
+    #   content_padding: "40px 32px"
+    #   section_gap: "40px"
+    # border_radius:
+    #   small: "4px"
+    #   medium: "8px"
+    #   large: "12px"
+    # transitions:
+    #   duration: "250ms"
+    #   easing: "cubic-bezier(0.4, 0, 0.2, 1)"
+    # shadows:
+    #   small: "0 1px 2px rgba(0,0,0,0.3)"
+    #   medium: "0 4px 12px rgba(0,0,0,0.4)"
+    #   large: "0 8px 32px rgba(0,0,0,0.5)"
+ #Component visibility toggles (optional) --------------------
+    # Show/hide any individual component or UI section from here. Every toggle
+    # defaults to ON; uncomment only the keys you want to change. `show: false`
+    # hides the piece (via config only, nothing is removed from the theme).
+    # components:
+    #   header:
+    #     show: true                 # Show/hide the entire header
+    #     show_logo: true            # Show the site logo
+    #     show_site_name: true       # Show the site name text
+    #     show_search: true          # Show the search button
+    #     show_repo_link: true       # Show the repository link
+    #     show_palette_toggle: true  # Show the dark/light toggle
+    #     show_page_title: true      # Show the current page title (left side)
+    #   sidebar:
+    #     show: true                 # Show/hide the left navigation sidebar
+    #   toc:
+    #     show: true                 # Show/hide the table of contents
+    #     title: "On this page"      # Custom TOC title
+    #     show_level_h2: true        # Show h2 headings in the TOC
+    #     show_level_h3: true        # Show h3 headings in the TOC
+    #     show_level_h4: true        # Show h4 headings in the TOC
+    #   footer:
+    #     show: true                 # Show/hide the entire footer
+    #     show_prev_next: true       # Show prev/next page navigation
+    #     show_copyright: true       # Show the copyright text
+    #     copyright_text: ""         # Custom copyright (overrides config.copyright)
+    #   content:
+    #     show: true                 # Show/hide the content area
+    #     show_progress_bar: true    # Reading progress bar at the top
+    #     show_back_to_top: true     # Back-to-top floating button
+    #   search:
+    #     show: true                 # Show/hide search functionality
+    #     shortcut_key: "/"          # Keyboard shortcut to open search
+    #     placeholder: "Search..."   # Search input placeholder
+    #   notes:
+    #     show: true                 # Show/hide the notes/annotations system
+    #   code:
+    #     show_copy_button: true     # Copy-to-clipboard button on code blocks
+    #   admonitions:
+    #     show: true                 # Enable admonition styling
+    #   mermaid:
+    #     show: true                 # Enable mermaid diagram rendering
+    #     cdn_url: ""                # Custom mermaid CDN URL
+    #     controls: true             # Show zoom/pan/fullscreen controls on diagrams (default true)
+    #   math:
+    #     show: true                 # Enable math (KaTeX) rendering
+    #     cdn_url: ""                # Custom KaTeX CDN URL
+    #   highlighting:
+    #     show: true                 # Enable code highlighting (highlight.js)
+    #     cdn_url: ""                # Custom highlight.js CDN URL
+    #     theme_dark: github-dark    # hljs theme used in dark mode
+    #     theme_light: github        # hljs theme used in light mode
+    #   repo_popover:
+    #     show: true                 # Show repo info popover on hover
+    #     fields:                    # Which info sections to show (default: ALL).
+    #       - description            #   Head + bio sections:
+    #       - owner_bio              #     description | owner_bio
+    #       - author                 #   Rows (omit a row to hide it):
+    #       - stars                  #     author | followers | public_repos | location
+    #       - forks                  #     stars | watchers | forks | open_issues
+    #       - open_issues            #     language | license | default_branch | commits
+    #       - created                #     tags | latest_commit | commit_msg
+    #       - pushed                 #     created | updated | pushed
+    #   tags:
+    #     show: true                 # Enable tag/pill styling
+    #   toast:
+    #     show: true                 # Enable toast notification system
+    #   keyboard_help:
+    #     show: true                 # Enable the "?" keyboard-shortcuts help
+ #Content area customization (optional) ------------------------
+    # Full control over content rendering. Every option defaults to the theme's
+    # current look; set only the keys you want to change. `content.max_width` and
+    # `content.padding` accept any CSS length and override the layout variables.
+    # content:
+    #   max_width: ""                  # Content column width, e.g. "960px"
+    #   padding: ""                    # Content area padding, e.g. "32px 24px"
+    #   glass: false                   # Glass surface around the content panel
+    #   show_progress_bar: true        # Reading progress bar (top of the page)
+    #   progress_bar_color: ""         # Progress bar color, e.g. "#0f0f23"
+    #   show_back_to_top: true         # Floating back-to-top button
+    #   back_to_top_threshold: 500     # px of scroll before it appears
+    #   back_to_top_label: "Back to top"  # aria-label for the button
+    #   typography:
+    #     heading_anchor: true         # TOC permalink anchors on headings
+    #     anchor_symbol: ""            # Custom permalink symbol ("" = theme default)
+    #     link_behavior: smooth        # smooth | instant, anchor scroll style
+    #     image_behavior: normal       # normal | lazy (lazy-load images)
+    #     image_lightbox: true         # click-to-zoom image preview in the article (default true; set false to disable)
+    #     video_behavior: responsive   # normal | responsive embeds/videos
+    #   code:
+    #     show_copy_button: true       # Copy button on code blocks
+    #     copy_label: ""               # "Copy" button label ("" = default)
+    #     copied_label: ""             # "Copied" feedback label ("" = default)
+    #     show_line_numbers: false     # Line-number gutter on code blocks
+    #     line_number_start: 1         # First displayed line number
+    #     highlight_lines: true        # Show pymdownx hl_lines emphasis
+    #     line_number_color: ""        # Gutter color, e.g. "#8a8f98"
+    #   admonitions:
+    #     enabled: true                # Admonition glass panel styling
+    #     types:
+    #       note:     { color: "", icon: "" }
+    #       tip:      { color: "", icon: "" }
+    #       warning:  { color: "", icon: "" }
+    #       danger:   { color: "", icon: "" }
+    #       info:     { color: "", icon: "" }
+    #       success:  { color: "", icon: "" }
+    #   tables:
+    #     responsive: true             # Wrap tables in a scrollable container
+    #     striped: false               # Zebra striping on rows
+    #     bordered: false              # Full cell borders
+    #   task_lists:
+    #     enabled: true                # Task-list checkbox handling
+    #     custom_checkbox: true        # false = native browser checkboxes
+    #     persist_state: true          # Remember checked state per page
+ #Header & navbar customization (optional) ---------------------
+    # Customize the header bar. Every option defaults to the theme's current
+    # look; uncomment only the keys you want to change. `position`, `height`
+    # and `z_index` are applied via inline CSS custom properties; `glass`,
+    # `blur` and `border_bottom` are applied via data attributes on <header>.
+    # header:
+    #   position: "sticky"            # sticky | fixed | static (default sticky)
+    #   glass: true                   # Frosted-glass background (default true)
+    #   blur: true                    # Glass backdrop blur (default true)
+    #   border_bottom: true           # Separator border under the header (default true)
+    #   height: "56px"                # Header height (default 56px)
+    #   z_index: 300                  # Header stacking order (default 300)
+    #   brand:
+    #     show: true                  # Show the logo + site name (default true)
+    #     logo_height: 26             # Logo height in px (default 26)
+    #     show_site_name: true        # Show the site name text (default true)
+    #     site_name_suffix: ""        # Text appended to the site name (default "")
+    #   left:
+    #     show_page_title: true       # Current page title on the left (default true)
+    #     show_hamburger: true        # Mobile drawer toggle (default true)
+    #   right:
+    #     - palette_toggle            # Dark/light theme toggle
+    #     - search                    # Search button
+    #     - repo_link                 # Repository link with popover
+    #     # Ordered list of items on the right. Items may be plain strings
+    #     # (palette_toggle, search, repo_link) or custom entries:
+    #     # - type: link               # Plain text link
+    #     #   label: "Changelog"
+    #     #   url: "https://example.com/changelog"
+    #     #   icon: "external"         # github | gitlab | external | code | star | custom path
+    #     #   new_tab: false
+    #     # - type: button             # Styled button
+    #     #   label: "Star on GitHub"
+    #     #   url: "https://github.com/rkriad585/mkdocs-void"
+    #     #   style: "primary"         # primary | glass | outline
+    #     #   icon: "star"
+    #     #   new_tab: true
+ #Footer customization (optional) ------------------------------
+    # Customize the footer bar. Every option defaults to the theme's current
+    # look; uncomment only the keys you want to change. `position` is applied
+    # via an inline CSS custom property (`fixed` docks the footer to the
+    # viewport bottom); `glass` and `border_top` via data attributes on
+    # <footer>; `layout` via a data attribute too.
+    # footer:
+    #   position: "relative"          # relative | fixed (default relative)
+    #   glass: true                   # Frosted-glass background (default true)
+    #   border_top: true              # Separator border on top (default true)
+    #   layout: "default"             # default | minimal | extended (default default)
+    #   prev_next:
+    #     show: true                  # Show prev/next page navigation (default true)
+    #     show_arrow: true            # Show < > arrow icons (default true)
+    #     show_title: true            # Show page titles (default true)
+    #   copyright:
+    #     show: true                  # Show the copyright line (default true)
+    #     text: ""                    # Custom text (overrides config.copyright)
+    #     show_year: true             # Auto-insert current year (default true)
+    #   social:                       # Social icon row (empty by default)
+    #     - icon: "github"            #   github | twitter | discord | custom
+    #       url: "https://github.com/user"
+    #       label: "GitHub"
+    #     - icon: "custom"            #   Custom SVG:
+    #       svg: "<svg>...</svg>"     #     raw <svg> markup (inline)
+    #       url: "https://example.com"
+    #       label: "Example"
+    #   columns:                      # Footer columns (rendered in "extended" layout)
+    #     - title: "Product"          #   Column heading
+    #       links:
+    #         - label: "Features"
+    #           url: "/features/"
+    #         - label: "Pricing"
+    #           url: "/pricing/"
+    #           new_tab: false
+ #Sidebar & navigation customization (optional) -----------------
+    # Customize the navigation sidebar. Every option defaults to the theme's
+    # current look; uncomment only the keys you want to change. `position` and
+    # `width` are applied via an inline CSS custom variable on <body>; `glass`
+    # and `blur` via data attributes on <nav>; the remaining keys via data
+    # attributes and inline CSS custom properties on the nav.
+    # sidebar:
+    #   position: "left"               # left | right (right swaps sidebar & TOC) (default left)
+    #   width: "280px"                 # Sidebar width (default 280px)
+    #   collapsible: true              # Ctrl/Cmd+Shift+B toggle (default true)
+    #   default_collapsed: false       # Start with the sidebar collapsed (default false)
+    #   glass: true                    # Frosted-glass background (default true)
+    #   blur: true                     # Glass backdrop blur (default true)
+    #   nav:
+    #     show_toggle_buttons: true    # Collapsible section headings (default true)
+    #     show_active_border: true     # Accent border on the active item (default true)
+    #     active_border_color: ""      # Custom border color (defaults to accent)
+    #     indent_nested: true          # Indent nested levels (default true)
+    #     indent_size: "16px"          # Indent step per nested level (default 16px)
+    #     max_depth: 4                 # Max depth rendered (optional; absent = unlimited)
+    #   sections:
+    #     show: true                   # Show section heading rows (default true)
+    #     style: "uppercase"           # uppercase | bold | default (default uppercase)
+ #Table of contents customization (optional) -------------------
+    # Customize the right sidebar "On this page" rail. Every option defaults to
+    # the theme's current look; uncomment only the keys you want to change.
+ #`position` reuses the swap mechanism (data attribute on <body>;
+    # `left` swaps TOC & sidebar); `width` is applied via an inline CSS custom
+    # variable on <body>; `glass`, `title_style` via data attributes on <aside>.
+    # toc:
+    #   position: "right"              # right | left (left swaps toc & sidebar) (default right)
+    #   width: "240px"                 # TOC width (default 240px)
+    #   title: "On this page"          # Custom TOC title (default On this page)
+    #   title_style: "uppercase"       # uppercase | bold | default (default uppercase)
+    #   collapsible: true              # Ctrl/Cmd+Shift+T toggle (default true)
+    #   default_collapsed: false       # Start with the TOC collapsed (default false)
+    #   glass: true                    # Glass backdrop (false = opaque rail) (default true)
+    #   levels:                        # Heading levels to show in the TOC
+    #     h2: true                     #   (all levels shown unless listed false)
+    #     h3: true
+    #     h4: true
+    #     h5: false
+    #     h6: false
+    #   tracking:
+    #     enabled: true                # Scrollspy active-heading highlight (default true)
+    #     offset: "100px"              # Scroll offset for activation (default 25% viewport)
+    #   permalink: true                # Show # anchor links on headings (default true)
+    #   permalink_symbol: ""           # Replace the permalink glyph (empty = markdown default)
+ #Keyboard shortcuts customization (optional) --------------------
+    # Remap every built-in global shortcut and/or add your own. Every option
+    # defaults to the current key binding; uncomment only the keys you want to
+    # change. `enabled: false` disables a single shortcut; `persisted` controls
+    # whether a toggle state is remembered in localStorage. Keys may use plain
+    # letters ("/", "g"), named keys ("Escape", "ArrowUp", "F1") or combos
+    # ("Ctrl+K", "Ctrl+Shift+B", "Ctrl+Alt+B"). Ctrl and Cmd (Meta) are treated
+    # as equivalent. `enabled: false` on the whole `keyboard` block turns off all
+    # shortcuts at once.
+    # keyboard:
+    #   enabled: true                  # Master switch for all shortcuts (default true)
+    #   shortcuts:
+    #     search:
+    #       key: "/"                   # Open search (default "/")
+    #       label: "Open search"       # Text shown in the "?" help modal
+    #     close:
+    #       key: "Escape"              # Close active overlay (default Escape)
+    #       label: "Close active overlay"
+    #     search_up:
+    #       key: "ArrowUp"             # Navigate search results (default ArrowUp)
+    #       label: "Navigate search results up"
+    #     search_down:
+    #       key: "ArrowDown"           # (default ArrowDown)
+    #       label: "Navigate search results down"
+    #     search_open:
+    #       key: "Enter"               # Open the selected result (default Enter)
+    #       label: "Open selected result"
+    #     tab_left:
+    #       key: "ArrowLeft"           # Previous tab (default ArrowLeft)
+    #       label: "Switch to previous tab"
+    #     tab_right:
+    #       key: "ArrowRight"          # Next tab (default ArrowRight)
+    #       label: "Switch to next tab"
+    #     toggle_sidebar:
+    #       key: "Ctrl+Shift+B"        # Collapse/expand the sidebar (default Ctrl+Shift+B)
+    #       label: "Toggle sidebar"
+    #       persisted: true            # Remember the collapsed state (default true)
+    #     toggle_toc:
+    #       key: "Ctrl+Shift+T"        # Collapse/expand the TOC (default Ctrl+Shift+T)
+    #       label: "Toggle table of contents"
+    #       persisted: true            # Remember the collapsed state (default true)
+    #     toggle_notes:
+    #       key: "Ctrl+Shift+N"        # Open/close the notes panel (default Ctrl+Shift+N)
+    #       label: "Toggle notes panel"
+    #       enabled: true              # Set false to disable this shortcut
+    #     help:
+    #       key: "?"                   # Show the keyboard-shortcuts modal (default "?")
+    #       label: "Show keyboard shortcuts"
+    #     toggle_reading_mode:
+ #Key: "Alt+Shift+R" # Enter/exit reading mode (; default Alt+Shift+R)
+    #       label: "Toggle reading mode"
+    #       enabled: true              # Set false to disable this shortcut
+    #       persisted: true            # Remember reading mode across reloads (default true)
+    #     toggle_action_cluster:
+ #Key: "Alt+Shift+A" # Expand/collapse the action cluster (; default Alt+Shift+A)
+    #       label: "Toggle action cluster"
+    #       enabled: true              # Set false to disable this shortcut
+    #     timer_toggle:
+ #Key: "Alt+Shift+T" # Open focus timer settings (; default Alt+Shift+T)
+    #       label: "Toggle focus timer"
+    #       enabled: true              # Set false to disable this shortcut
+    #     toggle_scheme:
+ #Key: "Ctrl+Shift+L" # Switch to the next color scheme (; default Ctrl+Shift+L)
+    #       label: "Toggle color scheme"
+    #       enabled: true              # Set false to disable this shortcut
+    #     toggle_repo_popover:
+ #Key: "Ctrl+Shift+G" # Show/hide the repo popover (; default Ctrl+Shift+G). Falls back to opening the repo link when unavailable.
+    #       label: "Toggle repo popover"
+    #       enabled: true              # Set false to disable this shortcut
+    #   custom:                        # Your own shortcuts (list of entries)
+    #     - key: "g"                   #   Press "g" to jump to the top
+    #       label: "Go to top"
+    #       action: "scroll_to_top"    #     scroll_to_top | toggle_reading_mode | toggle_scheme | toggle_repo_popover | open_repo | registered action name
+    #     - key: "r"                   #   Press "r" to flip reading mode
+    #       label: "Toggle reading mode"
+    #       action: "toggle_reading_mode"
+ #Custom CSS, JS & head injection (optional) ------------------
+    # Inject your own stylesheets, scripts, raw markup and extra <html>
+    # attributes without forking the theme. Local file paths are resolved
+    # relative to docs_dir (like the standard MkDocs keys) and copied into the
+    # build; http(s) URLs are injected as-is. All lists default to empty, so
+    # nothing is injected and the default rendering stays byte-identical.
+    # custom_css: []                  # Extra CSS paths merged into <head> (default [])
+    # custom_js: []                   # Extra JS paths merged before </body> (default [])
+    #
+    # The standard MkDocs keys are merged in the same single list (theme-level
+    # first, then custom_* above, then the top-level extra_css/extra_javascript):
+    # theme.extra_css:                # theme-level stylesheets (default [])
+    #   - assets/stylesheets/custom.css          #   Local (docs_dir-relative)
+    #   - "https://cdn.example.com/theme.css"    #   External
+    # theme.extra_javascript:         # theme-level scripts (default [])
+    #   - assets/javascripts/custom.js
+    #   - "https://cdn.example.com/widget.js"
+
+ #Advanced visual customization (optional) --------------------
+    # Fine-grained visual control beyond the design tokens: glass, dot matrix,
+    # animations, borders, shadows, scrollbar and text selection. These render
+    # as CSS custom properties / data attributes in the built page and override
+    # the compiled stylesheet. Every key defaults to the current theme behavior;
+    # `glass`, `dot_matrix`, `animation` and `border` also keep accepting their
+    # legacy scalar form (glass: "medium", dot_matrix: true, ...). The object
+    # form below is the full set of options.
+    # glass:
+    #   intensity: "medium"            # "light" | "medium" | "heavy" | "none"
+    #   blur: true                     # Backdrop filter blur
+    #   blur_amount: "12px"            # Custom blur radius (overrides intensity blur)
+    #   opacity: 0.8                   # Glass background opacity (dark & light schemes)
+    #   saturation: true               # Backdrop saturate filter
+    # dot_matrix:
+    #   enabled: true                  # Show the dot matrix overlay
+    #   color: ""                      # Dot color (default: text primary color)
+    #   size: "2px"                    # Dot size
+    #   gap: "24px"                    # Dot spacing
+    #   opacity: 0.3                   # Dot opacity
+    #   position: "fixed"              # "fixed" | "absolute"
+    # animation:
+    #   mode: "normal"                 # "normal" | "reduced" | "none"
+    #   page_transition: true          # Page load fade-in
+    #   hover_effects: true            # Hover scale/transform effects
+    #   scroll_animations: true        # Animate elements on scroll (progressive)
+    #   toast_animation: true          # Toast slide-in/out
+    # border:
+    #   width: "thin"                  # "none" | "thin" | "thick"
+    #   style: "solid"                 # "solid" | "dashed" | "dotted"
+    #   color: ""                      # Override border color (default: glass border)
+    # shadows:
+    #   enabled: true                  # Enable shadows
+    #   style: "default"               # "default" | "subtle" | "none"
+    # scrollbar:
+    #   show: false                    # Hide the native scrollbar (default false; set true to show it again)
+    #   style: "thin"                  # "thin" | "default" | "none"
+    #   color: ""                      # Custom scrollbar color
+    # selection:
+    #   background: ""                 # Text selection background color
+    #   color: ""                      # Text selection text color
+
+ #Search customization (optional) ----------------------------
+    # Full control over the search dialog behavior and appearance. Every key
+    # defaults to the current behavior and the built-in MkDocs search plugin is
+    # still driven by its own worker + lunr index. `enabled: false` removes the
+    # dialog; `style` currently only ships "modal" ("dropdown" is planned).
+    # search:
+    #   enabled: true                  # Render the search dialog
+    #   shortcut_key: "/"              # Keyboard shortcut that opens search
+    #   placeholder: "Search..."       # Input placeholder
+    #   min_chars: 2                   # Minimum characters before searching
+    #   max_results: 10                # Maximum results to display
+    #   show_context: true             # Show context snippet under each result
+    #   context_length: 120            # Characters of context per snippet
+    #   highlight_results: true        # Highlight search terms in results
+    #   suggest: true                  # Show recent-search suggestions
+    #   style: "modal"                 # "modal" | "dropdown" (future)
+    #   ui:
+    #     glass: true                  # Glass morphism on the search dialog
+    #     overlay_opacity: 0.5         # Backdrop overlay opacity
+    #     show_shortcuts: true         # Show keyboard shortcut hints in footer
+    #   result:
+    #     show_icon: true              # Show page icon in results
+    #     show_breadcrumb: true        # Show page path in results
+    #     show_highlights: true        # Highlight terms inside matched text
+    #     show_share: true             # Show "copy link" button on results
+ #Page-level overrides (front matter) -------------------------
+    # Any page can override these theme settings *for that page only* with a
+    # `void:` block in its front matter. Absent keys keep the theme config.
+ #The keys mirror their counterparts: header/sidebar/toc/footer
+    # `show`, toc `levels` (h2/h3/h4), content `show_progress_bar`/`glass`, the
+    # scalar `glass` ("light"|"medium"|"heavy"|"none"), `dot_matrix: false`,
+    # a per-page `custom_css` and `layout` ("default"|"wide"|"full").
+    # Example front matter:
+    #
+    # ---
+    # title: "My Page"
+    # void:
+    #   header:
+    #     show: false
+    #   sidebar:
+    #     show: false
+    #   toc:
+    #     show: false
+    #     levels:
+    #       h3: false
+    #   footer:
+    #     show: false
+    #   content:
+    #     show_progress_bar: false
+    #     glass: true
+    #   glass: "heavy"
+    #   dot_matrix: false
+    #   custom_css: "page-specific.css"
+    #   layout: "wide"                # default | wide | full
+    # ---
+ #Reading mode (optional) --------------------------------------
+    # One keypress (default Alt+Shift+R) enters a distraction-free reading view:
+    # the header, sidebars, TOC, footer, and progress chrome are hidden and the
+    # article re-measures to the full width. The active colour scheme (dark by
+    # default) is kept; `scheme.colors` may override it. Every aspect is
+    # configurable here; defaults keep the feature ON.
+    # The shortcut is also exposed as `keyboard.shortcuts.toggle_reading_mode`
+    # (that key wins over `shortcut_key` if both are set).
+    # reading_mode:
+    #   enabled: true                  # Master switch (default true)
+    #   shortcut_key: "Alt+Shift+R"    # Enter/exit reading mode (default Alt+Shift+R)
+    #   sections:                      # What is hidden while reading (default: all)
+    #     header: true                 #   top header / navbar
+    #     sidebar: true                #   left navigation sidebar
+    #     toc: true                    #   right table of contents
+    #     footer: true                 #   footer + prev/next nav
+    #     progress: true               #   reading progress bar + back-to-top
+    #   notes:
+    #     show: true                   # Keep the notes button/panel usable while reading
+    #     open_on_enter: false         # Auto-open the notes panel when entering
+    #   persisted: true                # Restore reading mode on the next visit
+    #   scheme:
+    #     enabled: true
+    #     name: "ink"                  # Optional label; unused by the engine
+ #Colors: # Optional token overrides; empty =
+    #                                  # inherit the active colour scheme (dark default)
+    #       background: "#000000"
+    #       surface: ""
+    #       text: "#ffffff"
+    #       text_secondary: ""
+    #       border: ""
+    #       accent: "#ff3030"
+    #   typography:                    # Reading measure + type scale
+    #     font_size: "1.125rem"
+    #     line_height: "1.75"
+    #     measure: "100%"
+ #Action cluster (optional) ------------------------------------
+    # A floating "plus" hub (bottom-left by default) that expands into a stack
+    # of quick actions: keyboard shortcuts, notes, focus timer, reading mode.
+    # Every aspect is configurable; defaults keep the feature fully ON. When
+    # `replaces_notes_button` is true the standalone notes launcher is hidden
+    # (the notes feature, panel, and shortcut stay untouched). The shortcut is
+    # also exposed as `keyboard.shortcuts.toggle_action_cluster` (that key wins
+    # over the default Alt+Shift+A if both are set).
+    # action_cluster:
+    #   enabled: true                   # Master switch for the whole cluster
+    #   position: "bottom-left"         #  bottom-left | bottom-right
+    #   offset: { bottom: "16px", left: "16px" }
+    #   main:
+    #     icon: "plus"                  #  plus | menu | notes
+    #     size: "44px"
+    #     glass: true                   # Reuse the glass pill look
+    #     icon_transform: true          # plus morphs into x while open
+    #   behavior:
+    #     min_actions: 2                # Hide the cluster if fewer actions are enabled
+    #     close_on_select: true         # Collapse after an action is chosen
+    #     close_on_escape: true
+    #     close_on_outside: true
+ #Animation: "normal" # normal | reduced | none ( tokens apply)
+    #     tooltips: true                # Show action labels on hover / focus
+    #     focus_trap: true              # Keep Tab cycling inside the open cluster
+    #   actions:                        # Each slot is independently configurable
+    #     - { id: keyboard_help, icon: "help",    label: "Keyboard shortcuts", enabled: true }
+    #     - { id: notes,          icon: "notes",   label: "Open notes panel",  enabled: true }
+    #     - { id: timer,          icon: "timer",   label: "Focus timer",        enabled: true }
+    #     - { id: reading_mode,   icon: "reading", label: "Reading mode",       enabled: true }
+    #   replaces_notes_button: true     # Hide the standalone notes launcher
+ #Focus timer (optional) ---------------------------------------
+    # A built-in focus timer (25-minute default session) shown in the TOC panel
+    # and as a chip while reading mode is active (the TOC is hidden there). The
+    # cluster's timer action or Alt+Shift+T always opens the settings popup, so
+    # a running session can be reconfigured without side effects; playback
+    # (play/pause, reset, cancel) lives on the TOC widget controls. The shortcut
+    # is also exposed as `keyboard.shortcuts.timer_toggle` (that key wins over
+    # the default Alt+Shift+T if both are set).
+    # timer:
+    #   enabled: true                   # Master switch for the whole timer
+    #   default_minutes: 25             # Duration used when starting fresh
+    #   toc:
+    #     show: true                    # Status widget inside the TOC panel
+    #     position: "bottom"            #  top | bottom of the .void-toc column
+    #     style: "ring"                 #  ring | bar | digits
+    #   reading:
+    #     show: true                    # Chip visible while reading mode is active
+    #   notifications:
+    #     enabled: true
+    #     toast: true                   #  voidToast("session complete")
+    #     sound: true                   #  short WebAudio chime
+    #   persist: true                   # Keep elapsed/remaining across reloads + SPA nav
+    #   settings_popup: true            # Config popup opened from the timer action
+    #   colors:
+    #     progress: "#8a5a33"           # Ring/bar progress accent while running
+ #Action shortcuts & cluster customization (optional) --------
+    # Per-action shortcuts and a live remaining-time badge on the cluster, the
+    # timer display format, an opt-in tab-title countdown, and auto-starting
+    # the focus timer when reading mode turns on. Action shortcuts are additive
+ #On the layer: when a shortcut aliases an enabled built-in (e.g.
+    # `timer`/Alt+Shift+T vs `keyboard.shortcuts.timer_toggle`), the built-in
+    # wins and the action shortcut is skipped so nothing double-fires; re-keying
+    # or disabling that built-in lets the action shortcut take over.
+    # action_cluster:
+ #Actions: # adds per-action shortcut + badge
+    #     - { id: keyboard_help, icon: "help",    label: "Keyboard shortcuts", shortcut: "?",             badge: none, enabled: true }
+    #     - { id: notes,          icon: "notes",   label: "Open notes panel",  shortcut: "Ctrl+Shift+N", badge: none, enabled: true }
+    #     - { id: timer,          icon: "timer",   label: "Focus timer",        shortcut: "Alt+Shift+T",  badge: time, enabled: true }
+    #     - { id: reading_mode,   icon: "reading", label: "Reading mode",       shortcut: "Alt+Shift+R",  badge: none, enabled: true }
+    # timer:
+    #   start_with_reading: false      # Auto-start the session when reading mode turns on (idle sessions only)
+    #   display_format: "mm:ss"        #  mm:ss | m:ss | SS (seconds only)
+    #   document_title: false          # Opt-in: live mm:ss + " — <page>" in the tab title while running
+    #   badge_in_cluster: true         # Mirror the remaining time into the cluster timer action badge
+ #Standalone config builder (demo: ON to showcase the tool) --
+    # The demo enables the dev tool so its two entry points are visible in
+    # these docs: a gear action inside the action cluster and a pinned trigger
+    # at the bottom of the TOC. Real sites keep the feature OFF by default.
+    # config_builder:
+    #  enabled: true               # Dev tool master switch (default false)
+    #  url: assets/config-builder.html  # Path relative to the site root (no leading slash)
+    #  open_target: _blank         # _blank | _self
+    #  cluster_action: true        # Gear action in the cluster when enabled
+ #Standalone config builder (optional, OFF by default) -----
+    # A completely self-contained HTML tool (`docs/assets/config-builder.html`)
+    # that generates a mkdocs.yml from grouped questions, with a live YAML
+    # preview and copy/download. It is a dev tool, NOT a runtime theme feature,
+    # so it ships OFF: `enabled: true` only exposes its entry points — a gear
+    # action inside the cluster and a pinned trigger at the bottom of the TOC —
+    # both of which open the standalone file in a new tab.
+    # config_builder:
+    #   enabled: false                   # Master switch (dev tool — default OFF)
+    #   url: "assets/config-builder.html"   # Path relative to the site root (no leading slash)
+    #   open_target: "_blank"            #  _blank | _self
+    #   cluster_action: true             # Gear action in the cluster when enabled
+    #   toc_footer: true                 # Pinned trigger at the bottom of the TOC
+ #AI-readable content mode (optional) ------------------------
+    # Every page ships a watermarked markdown mirror alongside its HTML so AI
+    # agents can `curl`/`webfetch` the raw source directly. The HTML output gains
+    # a `<link rel="alternate" type="text/markdown">` head tag plus a
+    # `<!-- void-ai-readable: <url> -->` comment for discoverability, an
+    # `llms.txt` index and a concatenated `llms-full.txt` land at the site root,
+    # and the mirror URLs are appended to sitemap.xml. Purely additive build
+    # output: the rendered site is otherwise unchanged.
+    # ai_reader:
+    #   enabled: true                   # Master switch for the whole feature
+    #   markup: true                    # Emit per-page markdown mirrors (.md sidecars)
+    #   url_style: "sidecar"            #  sidecar (foo/bar.md) | inline (foo/bar/index.md)
+    #   overwrite: false                # Never clobber a mirror already owned by another source page
+    #   auto_title: true                # Add "# <Title>" when the source has no H1
+    #   exclude: []                     # src_path globs to skip (e.g. "drafts/*.md")
+    #   llms: true                      # Emit llms.txt at the site root
+    #   llms_full: true                 # Emit llms-full.txt (all mirrors concatenated)
+    #   sitemap: true                   # List the mirror URLs in sitemap.xml
+    #   description: ""                 # llms.txt description override (else page.meta.description, else the page title)
+    #   watermark:
+    #     enabled: true
+    #     header: true                  # Metadata block at the top of every mirror
+    #     footer: true                  # Short closing line at the bottom
+    #     text: "Generated by Void for AI agents."   # Marker line
+    #     include_site: true            #   site_name
+    #     include_url: true             #   canonical URL of the page
+    #     include_generated: true       #   build timestamp (UTC)
+    #     include_version: true         #   theme version
+ #Identity & i18n (optional) ----------------------------------
+    # brand, chrome strings, breadcrumbs, nav icons, dark-aware images and the
+    # auto PWA manifest. i18n keys are flat aliases over the nested surfaces the
+    # client reads (search_, toc_, back_to_top, copy_to_clipboard, comments_title,
+    # skip_to_content, breadcrumb_label, previous_page/next_page); every key
+    # defaults to its English string. breadcrumbs/pwa ship ON and need nothing.
+    # i18n:
+    #   search_placeholder: "Partout dans la docs."
+    #   toc_title: "Sur cette page"
+    #   back_to_top: "Haut de page"
+    breadcrumbs:
+      show: true                    # Auto trail above content when ancestors exist
+    pwa:
+      manifest: true                # Emit manifest.webmanifest at the site root
+      display: "standalone"         #  standalone | fullscreen | minimal-ui | browser
+      icons: true                   # Local logo wins; a remote logo/favicon URL is fetched at build time
+      theme_color: ""               # Fallback: extra.void_theme_color, then background_color
+      background_color: "#111114"
+      start_url: ""                 # Fallback: site_url, then "/"
+    assets:
+      mode: cdn                     # cdn (default) | local | bundle
+      inline_critical_css: false    # inline vendored hljs + KaTeX CSS as <style> in <head>
+      vendor_dir: assets/vendor     # where local/bundle copies live under site/
+      timeout: 20                   # build-time fetch timeout (seconds) per file
+
+extra:
+  void_version: 23
+  void_logo_dark: https://raw.githubusercontent.com/rkriad585/mkdocs-void/main/docs/assets/images/logo.svg
+  void_logo_light: https://raw.githubusercontent.com/rkriad585/mkdocs-void/main/docs/assets/images/logo-light.svg
+  void_favicon_dark: https://raw.githubusercontent.com/rkriad585/mkdocs-void/main/docs/assets/images/favicon.svg
+  void_favicon_light: https://raw.githubusercontent.com/rkriad585/mkdocs-void/main/docs/assets/images/favicon-light.svg
+ #Global branding & meta (extra) -------------------------------
+  # Site identity + social metadata. All keys default to empty (absent); set a
+  # value to publish the corresponding tag. The tagline/badge render next to the
+  # header site name; og/twitter/theme-color/manifest tags land in <head>.
+  # "__auto__" generates a per-page social-card og:image at build time
+  # (theme.void.social_cards.cards must be enabled; Pillow required for PNG,
+  # otherwise a crisp SVG fallback is emitted). Any other value is used as the
+  # site-wide og:image/twitter preview (site-relative path or absolute URL).
+  void_og_image: assets/images/og-card-banner.png       # Site-wide OG/Twitter preview (light-mode 1280x640 logo)
+  # void_theme_color: "#000000"                        # Browser <meta name="theme-color">
+  # void_manifest: "/manifest.json"                    # PWA manifest <link rel="manifest">
+  # void_twitter_handle: "@username"                   # Twitter card @handle (also used for site/creator)
+  # void_site_tagline: "Glass + NothingOS Design"      # Subtitle shown under the header site name
+  # void_site_badge: "v0.1.2"                          # Version pill shown next to the site name
+ #Community flywheel (extra) -----------------------------------
+  # "Powered by Void" footer credit + dot-matrix badge. Opt-in: set true to
+  # show a one-line credit linking back to the project (self-contained badge,
+  # no external image request). void_showcase_url overrides the default repo.
+  void_showcase: true
+  # void_showcase_url: "https://github.com/rkriad585/mkdocs-void"
+ #Raw markup / <html> attribute injection (extra) ---------------
+  # Custom markup is injected verbatim (no escaping), so blocks are fine and
+  # anything that is valid HTML there is valid on the page. All keys are empty
+  # by default. <head> content lands after the theme styles; body_start is the
+  # first child of <body>; body_end is the last element before </body>.
+  # void_custom_head: |            # Raw HTML appended at the end of <head>
+  #   <meta name="theme-color" content="#000000">
+  #   <link rel="preconnect" href="https://fonts.googleapis.com">
+  #   <style>.my-class { color: red; }</style>
+  # void_custom_body_start: |      # Raw HTML as the first child of <body>
+  #   <div id="announcement">New release!</div>
+  # void_custom_body_end: |        # Raw HTML just before </body>
+  #   <script>console.log("custom")</script>
+  # void_custom_html_attrs: 'data-custom="true" lang="en"'   # Extra attributes on the <html> tag
+
+plugins:
+  - search
+  - void:
+ #Plugin configuration passthrough (optional) ---------------
+      # Every theme setting can also be configured directly on the `- void:`
+      # plugin entry, so a site can be tuned from a single place. Options given
+      # here are merged over `theme.void` (the plugin wins on conflicts) and
+      # validated exactly like the theme keys — a wrong type or an out-of-range
+      # value aborts the build with a clear message naming the offending key.
+      # Nothing is required: leave this empty to keep the theme defaults.
+      #
+      # Plugin-specific options:
+      # highlight: true              # highlight.js syntax highlighting (default true)
+      # notes: true                  # Notes/annotations panel (default true)
+      # notes_ttl: 259200000         # Notes TTL in ms (default 259200000 = 3 days)
+      #
+ #The `theme.void.*` keys are all accepted here as a
+      # convenience and behave identically (and win over `theme.void`):
+      # glass, dot_matrix, animation, border, colors, typography, spacing,
+      # border_radius, transitions, shadows, components, header, footer,
+      # sidebar, toc, search, keyboard, content, reading_mode, action_cluster,
+      # i18n, breadcrumbs, pwa, custom_css, custom_js.
+      # glass: "medium"              # "light" | "medium" | "heavy" | "none"
+      # dot_matrix: true             # Show the dot matrix overlay
+      # animation: "normal"          # "normal" | "reduced" | "none"
+      # border: "thin"               # "none" | "thin" | "thick"
+      # components:
+      #   toc:
+      #     show: true
+      # content:
+      #   glass: false
+      # colors:
+      #   primary: "#ff3030"
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+  - attr_list
+  - md_in_html
+  - def_list
+  - tables
+  - pymdownx.snippets:
+      base_path: docs
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+
+
+nav:
+  - Home: index.md
+  # ...
