@@ -8,7 +8,7 @@
     <p class="void-error__description">
       The page you are looking for does not exist or has been moved.
     </p>
-    <a href="{{ config.site_url | default('/') }}" class="void-error__action">
+    <a href="{{ config.site_url | default('/', true) }}" class="void-error__action">
       Return Home
     </a>
   </div>

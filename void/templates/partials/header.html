@@ -63,16 +63,16 @@
       <a href="{{ config.site_url | default('/', true) | url }}" class="void-header__brand"{% if _hdr_logo_size != 26 %} style="--void-header-logo-size: {{ _hdr_logo_size }}px"{% endif %} title="{{ config.site_name }}">
         {% if _logo_dark and (_comp.header.show_logo | default(true)) %}
         {% if _logo_dark.startswith("http") %}
-        <img src="{{ _logo_dark }}" alt="" width="{{ _hdr_logo_size }}" height="{{ _hdr_logo_size }}" class="void-header__brand-logo{{ '' if not _two_tone else ' void-header__brand-logo--dark' }}">
+        <img src="{{ _logo_dark }}" alt="{{ _brand }}" width="{{ _hdr_logo_size }}" height="{{ _hdr_logo_size }}" class="void-header__brand-logo{{ '' if not _two_tone else ' void-header__brand-logo--dark' }}">
         {% else %}
-        <img src="{{ _logo_dark | url }}" alt="" width="{{ _hdr_logo_size }}" height="{{ _hdr_logo_size }}" class="void-header__brand-logo{{ '' if not _two_tone else ' void-header__brand-logo--dark' }}">
+        <img src="{{ _logo_dark | url }}" alt="{{ _brand }}" width="{{ _hdr_logo_size }}" height="{{ _hdr_logo_size }}" class="void-header__brand-logo{{ '' if not _two_tone else ' void-header__brand-logo--dark' }}">
         {% endif %}
         {% endif %}
         {% if _two_tone and (_comp.header.show_logo | default(true)) %}
         {% if _logo_light.startswith("http") %}
-        <img src="{{ _logo_light }}" alt="" width="{{ _hdr_logo_size }}" height="{{ _hdr_logo_size }}" class="void-header__brand-logo void-header__brand-logo--light">
+        <img src="{{ _logo_light }}" alt="{{ _brand }}" width="{{ _hdr_logo_size }}" height="{{ _hdr_logo_size }}" class="void-header__brand-logo void-header__brand-logo--light">
         {% else %}
-        <img src="{{ _logo_light | url }}" alt="" width="{{ _hdr_logo_size }}" height="{{ _hdr_logo_size }}" class="void-header__brand-logo void-header__brand-logo--light">
+        <img src="{{ _logo_light | url }}" alt="{{ _brand }}" width="{{ _hdr_logo_size }}" height="{{ _hdr_logo_size }}" class="void-header__brand-logo void-header__brand-logo--light">
         {% endif %}
         {% endif %}
         <span class="void-header__brand-text">

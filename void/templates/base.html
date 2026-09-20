@@ -634,7 +634,7 @@
           {% if page and page.ancestors and (config.extra.void_breadcrumbs.show | default(true)) %}
           <nav class="void-breadcrumbs" aria-label="{{ _i18n.get('a11y', {}).get('breadcrumb', 'Breadcrumb') }}">
             {% if config.site_url %}
-            <a class="void-breadcrumbs__link" href="{{ config.site_url }}">{{ config.site_name }}</a>
+            <a class="void-breadcrumbs__link" href="{{ config.site_url | default('/', true) }}">{{ config.site_name }}</a>
             {% endif %}
             {% for _anc in page.ancestors %}
             {% if _anc.title and _anc.url %}

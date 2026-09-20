@@ -411,6 +411,7 @@ const dlBoot = bootIIFE({
   location: { origin: "https://x", pathname: "/docs/getting-started/", search: "?q=tokens", href: "https://x/docs/getting-started/?q=tokens", hash: "" },
   config: {
     base: "/docs/",
+    site_url: "https://x/docs",
     void_search: { enabled: true, min_chars: 2 },
     translations: { clipboard: { copy: "Copy link", copied: "Copied" } },
     components: {},
@@ -468,6 +469,7 @@ const noShareBoot = bootIIFE({
   location: { origin: "https://x", pathname: "/docs/getting-started/", search: "?q=tokens", href: "https://x/docs/getting-started/?q=tokens", hash: "" },
   config: {
     base: "/docs/",
+    site_url: "https://x/docs",
     void_search: { enabled: true, min_chars: 2, result: { show_share: false } },
     translations: { clipboard: { copy: "Copy link", copied: "Copied" } },
     components: {},

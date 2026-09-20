@@ -538,7 +538,8 @@
     let lastTerms = []
     let suggestionsEl = null
 
-    const base = (config && config.base) || "."
+    const base = (config && config.base) || ""
+    const searchBase = base.replace(/\/+$/, "/")
 
     const joinUrl = (b, p) => {
       if (!p) return b
@@ -667,7 +668,9 @@
       const terms = lastTerms
       for (let i = 0; i < results.length; i++) {
         const doc = results[i]
-        const href = joinUrl(base, doc.location || "")
+        const loc = doc.location || ""
+        let href = loc
+        try { href = new URL(loc, searchBase).href } catch (_e) { href = joinUrl(base, loc) }
 
  //Outer container holds the link + per-result share button.
         const row = document.createElement("div")
@@ -1463,7 +1466,7 @@
       }, { passive: false })
 
       frame.addEventListener("pointerdown", function (e) {
-        if (e.button !== 0 && e.pointerType !== "touch") return
+        if (e.button !== 0 || (e.pointerType !== "touch" && e.pointerType !== "pen")) return
         if (e.target.closest && e.target.closest(".void-diagram__toolbar, .void-diagram__ctl")) return
         if (!diagramZoomed(diagramCurrentView(mark)) && pointers.size === 0) return
         try { frame.setPointerCapture(e.pointerId) } catch (err) {}
@@ -4916,38 +4919,12 @@ actionClusterEnsureUi(cfg)
           if (!r.ok) throw new Error("HTTP " + r.status)
           return r.json()
         }),
-        fetch(api + "/tags?per_page=1").then(function (r) {
-          return r.ok ? r.json() : []
-        }).catch(function () { return [] }),
-        fetch(api + "/commits?per_page=1").then(function (r) {
-          const last = r.headers.get("Link")
-          let total = null
-          if (last) {
-            const m = last.match(/per_page=(\d+)&page=(\d+)>;\s*rel="last"/)
-            if (m) total = parseInt(m[1], 10) * parseInt(m[2], 10)
-          }
-          return r.ok ? r.json().then(function (list) {
-            return { total: total, latest: list[0] || null }
-          }) : { total: null, latest: null }
-        }).catch(function () { return { total: null, latest: null } }),
         fetch(USER_API_BASE + slug.owner).then(function (r) {
           return r.ok ? r.json() : null
         }).catch(function () { return null })
       ]).then(function (results) {
         const repo = results[0]
-        const tags = results[1]
-        const commits = results[2]
-        const ownerProfile = results[3] || {}
-
-        const latestCommit = commits.latest
-        const commitSha = latestCommit ? latestCommit.sha.slice(0, 7) : null
-        const commitDate = latestCommit && latestCommit.commit
-          ? fmtDate(latestCommit.commit.author && latestCommit.commit.author.date)
-          : "—"
-        const commitMsg = latestCommit && latestCommit.commit
-          ? (latestCommit.commit.message || "").split("\n")[0] : null
-        const totalCommits = commits.total != null ? commits.total : null
-        const latestTag = tags && tags[0] ? tags[0].name : null
+        const ownerProfile = results[1] || {}
 
         const ownerFromRepo = repo.owner || {}
         const ownerData = {
@@ -4978,15 +4955,52 @@ actionClusterEnsureUi(cfg)
             : null,
           default_branch: repo.default_branch,
           html_url: repo.html_url,
-          total_commits: totalCommits,
-          latest_tag: latestTag,
-          commit_sha: commitSha,
-          commit_date: commitDate,
-          commit_msg: commitMsg,
+          total_commits: null,
+          latest_tag: null,
+          commit_sha: null,
+          commit_date: "—",
+          commit_msg: null,
           owner: ownerData
         }
         cacheSet(cacheKey, repoData)
         renderBody(repoData)
+
+        // Phase 2: fetch tags + commits in background after popover renders
+        Promise.all([
+          fetch(api + "/tags?per_page=1").then(function (r) {
+            return r.ok ? r.json() : []
+          }).catch(function () { return [] }),
+          fetch(api + "/commits?per_page=1").then(function (r) {
+            const last = r.headers.get("Link")
+            let total = null
+            if (last) {
+              const m = last.match(/per_page=(\d+)&page=(\d+)>;\s*rel="last"/)
+              if (m) total = parseInt(m[1], 10) * parseInt(m[2], 10)
+            }
+            return r.ok ? r.json().then(function (list) {
+              return { total: total, latest: list[0] || null }
+            }) : { total: null, latest: null }
+          }).catch(function () { return { total: null, latest: null } })
+        ]).then(function (extra) {
+          const tags = extra[0]
+          const commits = extra[1]
+          const latestCommit = commits.latest
+          const commitSha = latestCommit ? latestCommit.sha.slice(0, 7) : null
+          const commitDate = latestCommit && latestCommit.commit
+            ? fmtDate(latestCommit.commit.author && latestCommit.commit.author.date)
+            : "—"
+          const commitMsg = latestCommit && latestCommit.commit
+            ? (latestCommit.commit.message || "").split("\n")[0] : null
+          const totalCommits = commits.total != null ? commits.total : null
+          const latestTag = tags && tags[0] ? tags[0].name : null
+          repoData.total_commits = totalCommits
+          repoData.latest_tag = latestTag
+          repoData.commit_sha = commitSha
+          repoData.commit_date = commitDate
+          repoData.commit_msg = commitMsg
+          cacheSet(cacheKey, repoData)
+          renderBody(repoData)
+        }).catch(function () {})
       }).catch(function () {
         loading = false
         renderError(t("repo.loadError", "Unable to load repo data"))
@@ -5004,7 +5018,8 @@ actionClusterEnsureUi(cfg)
       const avatarSrc = githubAvatarUrl(ownerData.avatar_url, ownerLogin)
       if (avatarSrc) {
         avatarHtml = '<img class="void-repo-pop__avatar" src="' + repoPopoverEscape(avatarSrc)
-          + '" alt="' + repoPopoverEscape(ownerName || ownerLogin) + '" referrerpolicy="no-referrer">'
+          + '" alt="' + repoPopoverEscape(ownerName || ownerLogin)
+          + '" referrerpolicy="no-referrer" loading="lazy" decoding="async" fetchpriority="low">'
       } else {
         avatarHtml = '<span class="void-repo-pop__avatar">' + repoPopoverEscape((ownerBlock[0] || "R").toUpperCase()) + "</span>"
       }
@@ -5203,7 +5218,8 @@ actionClusterEnsureUi(cfg)
         () => initCopyButtons(_navConfig), initTabs, initTaskLists,
         initUIExamples, () => initMath(_navConfig), initNavToggle,
         initPermalinks, () => initFeedback(_navConfig), () => initComments(_navConfig),
-        focusTimerEnsureUi
+        focusTimerEnsureUi, initActionCluster, initConfigBuilder,
+        initConsent, initAnnouncement
       ]
       inits.forEach(function (fn) {
         try { fn() } catch (e) {}
@@ -5414,7 +5430,7 @@ actionClusterEnsureUi(cfg)
     // Intercept internal link clicks.
     document.addEventListener("click", (e) => {
       if (e.defaultPrevented) return
-      if (e.button !== 0 && e.metaKey && e.ctrlKey) return
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return
       const link = e.target.closest("a")
       if (!link || !isNavigable(link)) return
       e.preventDefault()
@@ -5517,6 +5533,11 @@ actionClusterEnsureUi(cfg)
 
   onReady(function () {
     const config = readConfig()
+    // Resolve the relative base_url to an absolute URL once at init (Material
+    // for MkDocs pattern).  This gives a stable site-root URL that never goes
+    // stale after SPA navigation.  During mkdocs serve, base_url is a relative
+    // path like "../../" which resolves correctly against location.href.
+    try { config.base = new URL(config.base || "", location.href).href } catch (_e) {}
     applyPageOverrides(config)
     _config = config
 

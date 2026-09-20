@@ -10,7 +10,14 @@
   var CACHE_CDN = "void-cdn-v4"
 
   self.addEventListener("install", function (e) {
-    e.waitUntil(self.skipWaiting())
+    e.waitUntil(
+      caches.open(CACHE_STATIC).then(function (cache) {
+        return cache.addAll([
+          "./assets/void.css",
+          "./assets/javascripts/void.js"
+        ])
+      }).then(function () { return self.skipWaiting() })
+    )
   })
 
   self.addEventListener("activate", function (e) {
@@ -33,7 +40,7 @@
     var path = url.pathname
     if (path.indexOf("/search/") !== -1) return
 
-    // External: fonts + CDN → cache-first
+    // External: fonts + CDN + GitHub → cache-first
     if (url.origin !== self.location.origin) {
       if (isCDNOrFont(url.hostname)) {
         e.respondWith(cacheFirst(e.request, CACHE_CDN))
@@ -54,7 +61,10 @@
     return host === "fonts.googleapis.com" ||
            host === "fonts.gstatic.com" ||
            host === "cdnjs.cloudflare.com" ||
-           host === "cdn.jsdelivr.net"
+           host === "cdn.jsdelivr.net" ||
+           host === "api.github.com" ||
+           host === "avatars.githubusercontent.com" ||
+           host === "github.com"
   }
 
   function isStaticAsset(path) {
