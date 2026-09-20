@@ -8,7 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 <!-- AUTO-CHANGELOG:start -->
 ### Commits since the last release (auto)
-- no commits since the last release
+- [Added] feat: auto-open search on page load, delete FIX.md
+- [Fixed] fix: focus search input immediately on popup open
+- [Fixed] fix: search URLs, SPA click guard, caching, accessibility
+- [Changed] chore: add tidelift + patreon back to funding
+- [Changed] chore: delete wiki-sync, lower lighthouse accessibility threshold
+- [Changed] chore: fix versions in docs, add open collective, drop tidelift
+- [Changed] chore: release changelog for v0.3.0 [skip ci]
 <!-- AUTO-CHANGELOG:end -->
 
 ## [0.3.0] - 2026-09-19
