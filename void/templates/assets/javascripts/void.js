@@ -802,12 +802,10 @@
       searchEl.classList.add("void-search--active")
       searchEl.setAttribute("aria-hidden", "false")
       document.body.style.overflow = "hidden"
-      requestAnimationFrame(() => {
-        input.focus()
-        input.select()
-        // Auto-run the restored query so results show immediately.
-        if (input.value) runSearch(input.value)
-      })
+      input.focus()
+      input.select()
+      // Auto-run the restored query so results show immediately.
+      if (input.value) runSearch(input.value)
     }
 
     function closeSearch() {
@@ -965,7 +963,6 @@
 
  //Auto-open search when arriving via a shared deep link (?q=…).
     if (deepLink) openSearch()
-    else openSearch()
   }
 
   // ---------------------------------------------------------------------------
