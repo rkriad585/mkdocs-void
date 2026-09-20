@@ -965,6 +965,7 @@
 
  //Auto-open search when arriving via a shared deep link (?q=…).
     if (deepLink) openSearch()
+    else openSearch()
   }
 
   // ---------------------------------------------------------------------------
